@@ -1,29 +1,14 @@
 var _ = require('lodash');
 var fs = require('fs');
 
-function* scan(source, folder, startState) {
-    let state = startState;
-    for(var n of source) {
-        if (typeof(state) === "undefined" ) {
-            state = n;
-        }
-        else {
-            state = folder(state, n);
-            yield state;
-        }
-    }
+let year = 2015;
+let day = 1;
+
+let path = `./${year}/${("0" + day).slice(-2)}`;
+let solver = require(path +`/solve`);
+var text = fs.readFileSync(path + `/input.txt`).toString();
+
+for(let part of [1,2]) {
+    let answer = solver.solve(text, part);
+    console.log(`${year} day ${day} part ${part}: ${answer}`);
 }
-
-let x = scan([1,2,3], (s,n) => s+n, 0);
-
-console.log(Array.from(x));
-
-x = scan([1,2,3], (s,n) => s+n);
-console.log(Array.from(x));
-
-let solver = require("./2015/01/solve");
-var text = fs.readFileSync('./2015/01/input.txt').toString(); //.split("\n");
-
-solver.solve(text)
-
-console.log("Hello, World!");
