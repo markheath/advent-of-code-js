@@ -4,6 +4,10 @@ function solve(input, part) {
     return solver(input);
 }
 
+function expected(part) {
+    return part == 1 ? 74 : 1795;
+}
+
 function part1BuiltIn(input) {
     return Array.from(input)
         .map(n => n === '(' ? 1 : -1)
@@ -31,4 +35,4 @@ function part2Loop(input) {
     }
 }
 
-module.exports = {solve};
+module.exports = {solve,expected};
