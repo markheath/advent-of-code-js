@@ -38,17 +38,19 @@ function selector(p) {
 }
 
 function getInstructions(input) {
-    return input.split('\n').filter(n => n.length > 0).map(i => i.split(' ')).map(i => { return { target:i[i.length-1], action:selector(i), params:i } });
+    return input.split('\n').map(s => s.trim()).filter(n => n.length > 0).map(i => i.split(' ')).map(i => { return { target:i[i.length-1], action:selector(i), params:i } });
 }
 
 function runInstructions(ins) {
     var i;
+    
     while (i = ins.shift()) {
         try {
             state[i.target] = i.action(i.params);
         }
         catch(ex) {
             if (ex === "oops") {
+                //console.log(Object.keys(state));
                 ins.push(i);
             }
             else {
