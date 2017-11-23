@@ -2,7 +2,7 @@ let _ = require('lodash');
 
 function solve(input, part) {
     var solver = part === 1 ? part1 : part2;
-    return solver(input);
+    return solver(input[0]);
 }
 
 function expected(part) {

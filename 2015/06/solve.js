@@ -35,7 +35,7 @@ let calculate = function(actionSelector, input) {
         let row = new Array(1000).fill(0);
         state.push(row);
     }
-    for (let i of input.split("\n").slice(0,-1)) {
+    for (let i of input) {
         let ins = parseInstruction(actionSelector, i);
         for(let p of expandPositions(ins.fromPos, ins.toPos)) {
             applyAction(state, ins.action, p);

@@ -1,7 +1,7 @@
 var _ = require('lodash');
 function solve(input, part) {
     var solver = part === 1 ? part1Lodash : part2Transform;
-    return solver(input);
+    return solver(input[0]);
 }
 
 function expected(part) {

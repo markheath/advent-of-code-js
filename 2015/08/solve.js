@@ -20,11 +20,11 @@ let sumDiffLengths = function(strings,f) {
 }
 
 function part1(input) {
-    return sumDiffLengths(input.split("\n"), f => [f, unescape(f)]);
+    return sumDiffLengths(input, f => [f, unescape(f)]);
 }
 
 function part2(input) {
-    return sumDiffLengths(input.split("\n").slice(0,-1), f => [escape(f), f]);
+    return sumDiffLengths(input, f => [escape(f), f]);
 }
 
 module.exports = {solve,expected};

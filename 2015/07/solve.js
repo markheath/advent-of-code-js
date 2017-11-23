@@ -38,7 +38,7 @@ function selector(p) {
 }
 
 function getInstructions(input) {
-    return input.split('\n').map(s => s.trim()).filter(n => n.length > 0).map(i => i.split(' ')).map(i => { return { target:i[i.length-1], action:selector(i), params:i } });
+    return input.map(i => i.split(' ')).map(i => { return { target:i[i.length-1], action:selector(i), params:i } });
 }
 
 function runInstructions(ins) {
@@ -50,7 +50,6 @@ function runInstructions(ins) {
         }
         catch(ex) {
             if (ex === "oops") {
-                //console.log(Object.keys(state));
                 ins.push(i);
             }
             else {

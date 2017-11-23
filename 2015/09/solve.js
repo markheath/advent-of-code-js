@@ -20,8 +20,7 @@ function getDistance (a,b,distances) {
 }
 
 function getDistances(input) {
-    return input.split('\n')
-        .slice(0,-1)
+    return input
         .map(s => /^(\w+) to (\w+) = (\d+)/g.exec(s))
         .map(m => { return { from:m[1],to:m[2],distance:parseInt(m[3]) }})
 }

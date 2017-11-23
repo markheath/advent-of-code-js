@@ -8,9 +8,8 @@ function expected(part) {
 }
 
 function measure(input, fn) {
-    return input.split("\n")
+    return input
     .map(s => s.split('x'))
-    .filter(x => x.length > 1)
     .map(x => x.map(n => parseInt(n)))
     .map(w => w.sort((a,b)=>a-b))
     .map(fn)

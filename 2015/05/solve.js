@@ -8,7 +8,7 @@ function expected(part) {
     return part == 1 ? 236 : 51;
 }
 function countNice(input, isNice) {
-    return input.split("\n").filter(isNice).length;
+    return input.filter(isNice).length;
 }
 
 function part1(input) {
