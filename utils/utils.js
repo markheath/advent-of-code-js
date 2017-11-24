@@ -1,13 +1,15 @@
 function* scan(source, folder, startState) {
     let state = startState;
+    if (typeof(state) !== "undefined" )
+        yield state;
     for(var n of source) {
         if (typeof(state) === "undefined" ) {
             state = n;
         }
         else {
             state = folder(state, n);
-            yield state;
         }
+        yield state;
     }
 }
 
