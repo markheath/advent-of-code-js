@@ -2,7 +2,7 @@ var chalk = require('chalk');
 var fs = require('fs');
 
 let year = 2015;
-for(let day = 23; day <= 23; day++) {
+for(let day = 23; day <= 24; day++) {
     let path = `./${year}/${("0" + day).slice(-2)}`;
     let solver = require(path +`/solve`);
     var text = fs.readFileSync(path + `/input.txt`)
