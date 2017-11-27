@@ -70,4 +70,35 @@ function sumBy(seq, selector) {
     return total;
 }
 
-module.exports = { scan,pairwise,permutations,flatMap,range,sumBy }
+function findBy(seq, selector, test) {
+    let maxVal;
+    let maxElem;
+    for(let n of seq) {
+        let val = (typeof(selector) === 'undefined') ? n : selector(n);
+        if (typeof(maxElem) === 'undefined' || test(val,maxVal)) {
+            maxElem = n;
+            maxVal = val;
+        }
+    }
+    return maxElem;
+}
+
+function maxBy(seq, selector) {
+    let maxVal;
+    let maxElem;
+    for(let n of seq) {
+        let val = (typeof(selector) === 'undefined') ? n : selector(n);
+        if (typeof(maxElem) === 'undefined' || val > maxVal) {
+            maxElem = n;
+            maxVal = val;
+        }
+    }
+    return maxElem;
+}
+
+function minBy(seq, selector) {
+    return findBy(seq,selector,(a,b) => a < b);
+}
+
+
+module.exports = { scan,pairwise,permutations,flatMap,range,sumBy,maxBy,minBy }
