@@ -56,4 +56,18 @@ function test() {
     console.log(Array.from(x));
 }
 
-module.exports = { scan,pairwise,permutations,flatMap}
+function* range(start, count) {
+    for (let n = 0; n < count; n++) {
+        yield start++;
+    }
+}
+
+function sumBy(seq, selector) {
+    let total = 0;
+    for(let n of seq) {
+        total += (typeof(selector) === 'undefined') ? n : selector(n);
+    }
+    return total;
+}
+
+module.exports = { scan,pairwise,permutations,flatMap,range,sumBy }

@@ -6,19 +6,13 @@ function solve(input, part) {
 }
 
 function expected(part) {
-    return part == 1 ? 2640 : 1102;
-}
-
-function* range(start, count) {
-    for (let n = 0; n < count; n++) {
-        yield start++;
-    }
+    return part === 1 ? 2640 : 1102;
 }
 
 function getLookup(input) {
     return input.map(s => s.split(' '))
             .map(g => { return { Speed:Number(g[3]), Duration:Number(g[6]), Rest:Number(g[13]) } })
-            .map(r => Array.from(utils.scan(Array.from(range(0, 2503))
+            .map(r => Array.from(utils.scan(Array.from(utils.range(0, 2503))
                       .map(t => t % (r.Duration + r.Rest) < r.Duration ? r.Speed : 0)
                       , (a, b) => a + b, 0)).slice(1));
 
