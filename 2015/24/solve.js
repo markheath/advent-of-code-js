@@ -1,8 +1,5 @@
 let utils = require("../../utils/utils");
 
-// my solution with random spell chooser: http://markheath.net/post/advent-of-code-day22
-// this simpler JavaScript version inspired by https://www.reddit.com/r/adventofcode/comments/3xspyl/day_22_solutions/cy7swgm/
-
 let bestSoFar;
 function solve(input, part) {
     var presents = input.map(n => Number(n));
