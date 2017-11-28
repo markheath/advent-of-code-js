@@ -38,7 +38,7 @@ function selector(p) {
 }
 
 function getInstructions(input) {
-    return input.map(i => i.split(' ')).map(i => { return { target:i[i.length-1], action:selector(i), params:i } });
+    return input.map(i => i.split(' ')).map(i => ({ target:i[i.length-1], action:selector(i), params:i }));
 }
 
 function runInstructions(ins) {
