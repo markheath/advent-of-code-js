@@ -86,4 +86,19 @@ function minBy(seq, selector) {
     return findBy(seq,selector,(a,b) => a < b);
 }
 
-module.exports = { scan,pairwise,permutations,flatMap,range,sumBy,maxBy,minBy }
+function bfs(isSolution, getChildren, start)  {
+    let q = [start]
+    function *search() {
+        if (q.length > 0) {
+            let s = q.shift()
+            if (isSolution(s)) {
+                yield s;
+            }
+            q.push(...getChildren(s))
+            yield* search()
+        }
+    }
+    return search();
+}
+
+module.exports = { scan,pairwise,permutations,flatMap,range,sumBy,maxBy,minBy,bfs }

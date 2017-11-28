@@ -4,12 +4,13 @@
   "description": "Advent of Code JavaScript",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jasmine"
   },
   "author": "Mark Heath",
   "license": "ISC",
   "dependencies": {
     "chalk": "^2.3.0",
+    "jasmine": "^2.8.0",
     "lodash": "^4.17.4"
   }
 }
