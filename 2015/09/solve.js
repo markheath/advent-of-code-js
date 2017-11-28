@@ -1,4 +1,4 @@
-let utils = require('../../utils/utils');
+let {pairwise,flatMap,permutations} = require('../../utils/utils');
 
 function solve(input, part) {
     var solver = part === 1 ? part1 : part2;
@@ -9,10 +9,8 @@ function expected(part) {
     return part == 1 ? 207 : 804;
 }
 
-
-
 function getPlaces(distances) {
-    return Array.from(new Set(utils.flatMap(d => [d.from, d.to],distances)))
+    return Array.from(new Set(flatMap(d => [d.from, d.to],distances)))
 }
 
 function getDistance (a,b,distances) {
@@ -29,8 +27,8 @@ function getDistances(input) {
 function getRouteLengths(input) {
     let distances = getDistances(input);
     let places = getPlaces(distances);
-    return utils.permutations(places)
-            .map(r => utils.pairwise(r).map(([a,b]) => getDistance(a,b,distances)).reduce((a,b) => a+b));
+    return permutations(places)
+            .map(r => pairwise(r).map(([a,b]) => getDistance(a,b,distances)).reduce((a,b) => a+b));
 }
 
 function part1(input) {
