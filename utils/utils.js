@@ -48,7 +48,6 @@ function flatMap(xs,f) {
     return out;
 }
 
-
 function pairwise(arr) {
     let out = [];
     for (let n = 1; n < arr.length; n++) {
@@ -57,21 +56,11 @@ function pairwise(arr) {
     return out;
 }
 
-function test() {
-    let x = scan([1,2,3], (s,n) => s+n, 0);
-
-    console.log(Array.from(x));
-
-    x = scan([1,2,3], (s,n) => s+n);
-    console.log(Array.from(x));
-}
-
 function* range(start, count) {
     for (let n = 0; n < count; n++) {
         yield start++;
     }
 }
-
 
 function sumBy(seq, selector) {
     let total = 0;
@@ -95,16 +84,7 @@ function findBy(seq, selector, test) {
 }
 
 function maxBy(seq, selector) {
-    let maxVal;
-    let maxElem;
-    for(let n of seq) {
-        let val = (typeof(selector) === 'undefined') ? n : selector(n);
-        if (typeof(maxElem) === 'undefined' || val > maxVal) {
-            maxElem = n;
-            maxVal = val;
-        }
-    }
-    return maxElem;
+    return findBy(seq,selector,(a,b) => a > b);
 }
 
 function minBy(seq, selector) {

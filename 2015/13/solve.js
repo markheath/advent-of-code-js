@@ -1,4 +1,4 @@
-let utils = require("../../utils/utils");
+let {permutations,pairwise} = require("../../utils/utils");
 
 function solve(input, part) {
     let rules = input
@@ -12,9 +12,9 @@ function solve(input, part) {
     }
 
     let lookupHappiness = ([a,b]) => lookup[`${a}-${b}`] + lookup[`${b}-${a}`];
-    var happiness = utils.permutations(Array.from(people)
+    var happiness = permutations(Array.from(people)
         .slice(1))
-        .map(p => { p.unshift(people[0]); p.push(people[0]); return utils.pairwise(p); })
+        .map(p => { p.unshift(people[0]); p.push(people[0]); return pairwise(p); })
         .map(p => p.reduce((acc,x) => { return acc + lookupHappiness(x); },0));
     return Math.max.apply(null, happiness)
 }

@@ -1,4 +1,4 @@
-let utils = require("../../utils/utils");
+let {scan,range} = require("../../utils/utils");
 
 function solve(input, part) {
     var solver = part === 1 ? part1 : part2;
@@ -12,7 +12,7 @@ function expected(part) {
 function getLookup(input) {
     return input.map(s => s.split(' '))
             .map(g => { return { Speed:Number(g[3]), Duration:Number(g[6]), Rest:Number(g[13]) } })
-            .map(r => Array.from(utils.scan(Array.from(utils.range(0, 2503))
+            .map(r => Array.from(scan(Array.from(range(0, 2503))
                       .map(t => t % (r.Duration + r.Rest) < r.Duration ? r.Speed : 0)
                       , (a, b) => a + b, 0)).slice(1));
 

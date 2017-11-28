@@ -1,14 +1,14 @@
-let utils = require("../../utils/utils");
+let {maxBy,minBy} = require("../../utils/utils");
 
 function solve(input, part) {
 
     let boss = new PlayerStatus(103, 9, 2, 0);
     let options = Array.from(getPlayerOptions(100));
     if(part === 1) {
-        return utils.minBy(options.filter(x => battle(x, boss)), x => x.goldSpent).goldSpent;
+        return minBy(options.filter(x => battle(x, boss)), x => x.goldSpent).goldSpent;
     }
     else {
-        return utils.maxBy(options.filter(x => !battle(x, boss)), x => x.goldSpent).goldSpent;
+        return maxBy(options.filter(x => !battle(x, boss)), x => x.goldSpent).goldSpent;
     }
 }
 
