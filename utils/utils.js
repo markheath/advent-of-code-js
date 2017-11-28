@@ -36,9 +36,18 @@ function permutations(inputArr) {
     return permute(inputArr);
   }
 
-const flatMap = (f,xs) =>
+const flatMapX = (xs,f) =>
     xs.reduce((acc,x) =>
         acc.concat(f(x)), []);
+
+function flatMap(xs,f) {
+    let out = []
+    for (let x of xs) {
+        out.push(...f(x));
+    }
+    return out;
+}
+
 
 function pairwise(arr) {
     let out = [];

@@ -10,7 +10,7 @@ function expected(part) {
 }
 
 function getPlaces(distances) {
-    return Array.from(new Set(flatMap(d => [d.from, d.to],distances)))
+    return Array.from(new Set(flatMap(distances,d => [d.from, d.to])))
 }
 
 function getDistance (a,b,distances) {

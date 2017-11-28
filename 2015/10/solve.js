@@ -1,4 +1,4 @@
-let _ = require('lodash');
+let { range,flatMap } = require('../../utils/utils');
 
 function solve(input, part) {
     var solver = part === 1 ? part1 : part2;
@@ -21,8 +21,9 @@ let groupAdjacent = a => a.reduce(function(prev, curr) {
 
 function getRepeatedLength(repetitions,input) {
     let start = Array.from(input).map(c => c - '0');
-    return _.range(1,repetitions + 1)
-            .reduce((acc,x) => _.flatMap(groupAdjacent(acc),g => [g.length, g[0]]), start).length;
+
+    return [...range(1,repetitions)]
+            .reduce((acc,x) => flatMap(groupAdjacent(acc),g => [g.length, g[0]]), start).length;
 }
 
 function part1(input) {
