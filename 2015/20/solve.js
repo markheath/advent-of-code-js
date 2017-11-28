@@ -1,5 +1,4 @@
 
-
 function solve(input, part) {
     const target = Number(input[0]);
 
@@ -23,7 +22,7 @@ function solve(input, part) {
 
 
 function expected(part) {
-    return part == 1 ? 831600 : 884520;
+    return part === 1 ? 831600 : 884520;
 }
 
 

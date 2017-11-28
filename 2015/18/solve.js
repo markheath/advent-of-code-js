@@ -1,20 +1,18 @@
-let utils = require("../../utils/utils");
+let {range,sumBy} = require("../../utils/utils");
 
 function solve(input, part) {
     let state = input.map(s => Array.from(s.trim()).map(c => c === '#' ? 1 : 0));
     const repetitions = 100;
     let getNextValue = (part === 1) ? getNextValue1 : getNextValue2;
     let getLight = (part === 1) ? getLight1 : getLight2;
-    for (let a = 0; a < repetitions; a++)
-    {
-        let nextState = [...utils.range(0, state.length)]
-            .map(x => [...utils.range(0, state[x].length)]
+    for (let a = 0; a < repetitions; a++) {
+        let nextState = [...range(0, state.length)]
+            .map(x => [...range(0, state[x].length)]
                         .map(y => getNextValue(getLight, state, x, y)));
         state = nextState;
     }
-    return utils.sumBy(state, r => utils.sumBy(r));
+    return sumBy(state, r => sumBy(r));
 }
-
 
 let getLight1 = (state, x, y) => {
     if (x < 0 || x >= state.length) return 0;

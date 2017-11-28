@@ -1,4 +1,4 @@
-let utils = require("../../utils/utils");
+let {range} = require("../../utils/utils");
 
 
 function solve(input, part) {
@@ -17,7 +17,7 @@ function solve(input, part) {
 }
 
 function* mutate(sq, replacements) {
-    for(let pos of utils.range(0, sq.length)) {
+    for(let pos of range(0, sq.length)) {
         for(let rep of replacements) {
             let [a,b] = rep;
             if(sq.substring(pos).startsWith(a)) {
@@ -60,8 +60,7 @@ function search (molecule, replacements) {
 }
 
 function expected(part) {
-    return part == 1 ? 509 : 195;
+    return part === 1 ? 509 : 195;
 }
-
 
 module.exports = {solve,expected};

@@ -1,5 +1,3 @@
-let utils = require("../../utils/utils");
-
 function solve(input, part) {
     if (part === 1) {
         let code = 20151125;

@@ -1,5 +1,3 @@
-let utils = require("../../utils/utils");
-
 // my solution with random spell chooser: http://markheath.net/post/advent-of-code-day22
 // this simpler JavaScript version inspired by https://www.reddit.com/r/adventofcode/comments/3xspyl/day_22_solutions/cy7swgm/
 
@@ -36,9 +34,7 @@ function solve(input, part) {
     }
     return answer;
 
-    
-    function choose()
-    {
+    function choose() {
         if(mana < costPoison) {
             return "nothing";
         }
@@ -48,16 +44,16 @@ function solve(input, part) {
             if (next == 0 && mana >= costMissile) {
                 return "missile";
             }
-            else if (next == 1 && mana >= costDrain) {
+            else if (next === 1 && mana >= costDrain) {
                 return "drain";
             }
-            else if (next == 2 && mana >= costPoison) {
+            else if (next === 2 && mana >= costPoison) {
                 return "poison";
             }
-            else if (next == 3 && mana >= costRecharge) {
+            else if (next === 3 && mana >= costRecharge) {
                 return "recharge";
             }
-            else if (next == 4 && mana >= costShield) {
+            else if (next === 4 && mana >= costShield) {
                 return "shield";
             }
         }
@@ -153,8 +149,7 @@ function solve(input, part) {
 }
 
 function expected(part) {
-    return part == 1 ? 1269 : 1309;
+    return part === 1 ? 1269 : 1309;
 }
-
 
 module.exports = {solve,expected};

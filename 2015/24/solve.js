@@ -1,4 +1,4 @@
-let utils = require("../../utils/utils");
+let {sumBy} = require("../../utils/utils");
 
 let bestSoFar;
 function solve(input, part) {
@@ -8,7 +8,7 @@ function solve(input, part) {
 
 function findBestQE(presents, groups)
 {
-    let totalWeight = utils.sumBy(presents);
+    let totalWeight = sumBy(presents);
     let weightPerSet =  totalWeight / groups;
     bestSoFar = 1 + presents.length / groups;
     let bestSet = [...distribute([], presents, Math.floor(weightPerSet))]
@@ -17,35 +17,29 @@ function findBestQE(presents, groups)
     return bestSet.qe;
 }
 
-
 function* distribute(used, pool, amount)
 {
     if (used.length >= bestSoFar) return;
     
-    let remaining = amount - utils.sumBy(used);
-    for (let n = 0; n < pool.length; n++)
-    {
+    let remaining = amount - sumBy(used);
+    for (let n = 0; n < pool.length; n++) {
         let s = pool[n];
         if (pool[n] > remaining) continue;
         let x = [...used,s];
-        if (s === remaining)
-        {
+        if (s === remaining) {
             if (x.length < bestSoFar)
                 bestSoFar = x.length;
             yield x;
         }
-        else
-        {
+        else {
             var y = pool.slice(n+1);
             yield* distribute(x, y, amount);
         }
     }
 }
 
-
 function expected(part) {
     return part == 1 ? 10723906903 : 74850409;
 }
-
 
 module.exports = {solve,expected};

@@ -1,5 +1,3 @@
-let utils = require("../../utils/utils");
-
 function solve(input, part) {
 
     var instructions = input.map(i => i.split(' ').map(s => s.replace(',','')));
@@ -13,8 +11,7 @@ function solve(input, part) {
 
 function runInstructions(registers, instructions) {
     let index = 0;
-    while (index < instructions.length)
-    {
+    while (index < instructions.length) {
         var ins = instructions[index];
         switch (ins[0]) {
             case "inc":
@@ -48,6 +45,5 @@ function runInstructions(registers, instructions) {
 function expected(part) {
     return part == 1 ? 184 : 231;
 }
-
 
 module.exports = {solve,expected};
