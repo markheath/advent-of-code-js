@@ -1,4 +1,4 @@
-let scan = require("../../utils/utils").scan;
+let { scan } = require("../../utils/utils");
 
 function solve(input, part) {
     var solver = part === 1 ? part1 : part2;
@@ -9,12 +9,7 @@ function expected(part) {
     return part == 1 ? 2592 : 2360;
 }
 
-function getVector(c) {
-    return  c === '>' ? { x: 1, y: 0 } :
-            c === '^' ? { x: 0, y: 1 } :
-            c === '<' ? { x: -1, y: 0 } :
-                        { x: 0, y: -1 };
-}
+const lookup = { '>':[1,0], '^':[0,1], '<':[-1,0], 'v':[0,-1] };
 
 function part1(input) {
     let v = [...scan(input, moveSanta, {x:0,y:0})]
@@ -23,7 +18,7 @@ function part1(input) {
 }
 
 function moveSanta(pos,c) {
-    let {x,y} = getVector(c);
+    let [x,y] = lookup[c];
     return {x:pos.x+x,y:pos.y+y};
 }
 
