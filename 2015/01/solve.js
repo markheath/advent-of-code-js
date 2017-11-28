@@ -1,6 +1,6 @@
 var _ = require('lodash');
 function solve(input, part) {
-    var solver = part === 1 ? part1Lodash : part2Transform;
+    var solver = part === 1 ? part1BuiltIn : part2Loop;
     return solver(input[0]);
 }
 
@@ -9,9 +9,7 @@ function expected(part) {
 }
 
 function part1BuiltIn(input) {
-    return Array.from(input)
-        .map(n => n === '(' ? 1 : -1)
-        .reduce((x,y) => x+y,0);
+    return [...input].reduce((x,y) => x+(y === '(' ? 1 : -1),0);
 }
 function part1Lodash(input) {
     return _.sumBy(input, c => c === '(' ? 1 : -1);

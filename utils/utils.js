@@ -1,8 +1,9 @@
 function* scan(source, folder, startState) {
     let state = startState;
-    if (typeof(state) !== "undefined" )
-        yield state;
-    for(var n of source) {
+    if (typeof(state) !== "undefined" ) {
+        yield startState;
+    }
+    for (let n of source) {
         if (typeof(state) === "undefined" ) {
             state = n;
         }
@@ -61,6 +62,7 @@ function* range(start, count) {
         yield start++;
     }
 }
+
 
 function sumBy(seq, selector) {
     let total = 0;
