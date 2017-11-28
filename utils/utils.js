@@ -32,13 +32,8 @@ function permutations(inputArr) {
   
       return results;
     }
-  
     return permute(inputArr);
-  }
-
-const flatMapX = (xs,f) =>
-    xs.reduce((acc,x) =>
-        acc.concat(f(x)), []);
+}
 
 function flatMap(xs,f) {
     let out = []
@@ -90,6 +85,5 @@ function maxBy(seq, selector) {
 function minBy(seq, selector) {
     return findBy(seq,selector,(a,b) => a < b);
 }
-
 
 module.exports = { scan,pairwise,permutations,flatMap,range,sumBy,maxBy,minBy }
