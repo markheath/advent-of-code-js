@@ -1,4 +1,4 @@
-let {range} = require("../../utils/utils");
+let {range,shuffle} = require("../../utils/utils");
 
 
 function solve(input, part) {
@@ -24,13 +24,6 @@ function* mutate(sq, replacements) {
                  yield sq.substring(0,pos) + b + sq.substring(pos+a.length);
             }
         }
-    }
-}
-
-function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        let j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
     }
 }
 
