@@ -1,8 +1,13 @@
-let {scan,range} = require("../../utils/utils");
+let {scan,range,maxBy,max} = require("../../utils/utils");
 
 function solve(input, part) {
-    var solver = part === 1 ? part1 : part2;
-    return solver(input);
+    let lookup = getLookup(input);
+    if (part === 1) {
+        return max(lookup, v => v[v.length-1]);
+    }
+    else {
+        return max(lookup, v => v.filter((n,t) => n===max(lookup,q => q[t])).length);
+    }
 }
 
 function expected(part) {
@@ -15,19 +20,6 @@ function getLookup(input) {
             .map(r => Array.from(scan(Array.from(range(0, 2503))
                       .map(t => t % (r.Duration + r.Rest) < r.Duration ? r.Speed : 0)
                       , (a, b) => a + b, 0)).slice(1));
-
 }
-
-function part1(input) {
-    let lookup = getLookup(input);
-    return Math.max.apply(null, lookup.map(v => v[v.length-1]));
-}
-
-function part2(input) {
-    let lookup = getLookup(input);
-    let q = lookup.map(v => v.filter((n,t) => n===Math.max.apply(null, lookup.map(q => q[t]))).length);
-    return Math.max.apply(null, q);
-}
-
 
 module.exports = {solve,expected};

@@ -1,4 +1,4 @@
-let {permutations,pairwise} = require("../../utils/utils");
+let {permutations,pairwise,max} = require("../../utils/utils");
 
 function solve(input, part) {
     let rules = input
@@ -16,7 +16,7 @@ function solve(input, part) {
         .slice(1))
         .map(p => { p.unshift(people[0]); p.push(people[0]); return pairwise(p); })
         .map(p => p.reduce((acc,x) => { return acc + lookupHappiness(x); },0));
-    return Math.max.apply(null, happiness)
+    return max(happiness)
 }
 
 function expected(part) {
