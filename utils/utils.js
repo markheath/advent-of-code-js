@@ -16,10 +16,11 @@ function* scan(source, folder, startState) {
 
 //https://stackoverflow.com/a/20871714/7532
 function permutations(inputArr) {
-    var results = [];
+    let results = [];
   
     function permute(arr, memo) {
-      var cur, memo = memo || [];
+      let cur;
+      memo = memo || [];
   
       for (var i = 0; i < arr.length; i++) {
         cur = arr.splice(i, 1);
@@ -93,7 +94,6 @@ function max(seq, selector) {
 function min(seq, selector) {
     return findBy(seq,selector,(a,b) => a < b).foundVal;
 }
-
 
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
