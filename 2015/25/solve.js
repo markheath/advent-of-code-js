@@ -1,7 +1,7 @@
 function solve(input, part) {
     if (part === 1) {
         let code = 20151125;
-        for (let d = 1; true; d++) {
+        for (let d = 1; ; d++) {
             for (let c = 1; c < d+1; c++) {
                 let row = d - c + 1, col = c;
                 if (row === 2978 && col === 3083)

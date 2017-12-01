@@ -8,7 +8,7 @@ function expected(part) {
 }
 
 let parseInstruction = function(actionSelector, i) {
-    const pattern = /(turn on|toggle|turn off)\ (\d+)\,(\d+)\ through\ (\d+)\,(\d+)/
+    const pattern = /(turn on|toggle|turn off) (\d+),(\d+) through (\d+),(\d+)/
     const groups = pattern.exec(i);
     let action = actionSelector[groups[1]];
     let fromPos = [ parseInt(groups[2]), parseInt(groups[3]) ]
@@ -47,8 +47,8 @@ let calculate = function(actionSelector, input) {
 
 function part1(input) {
     const lookup = {
-        "turn on":  n => 1,
-        "turn off": n => 0,
+        "turn on":  () => 1,
+        "turn off": () => 0,
         "toggle": n => n == 1 ? 0 : 1
     };
     return calculate (lookup,input);

@@ -39,7 +39,7 @@ function solve(input, part) {
             return "nothing";
         }
 
-        while(true) {
+        for(;;) {
             let next = Math.floor(Math.random() * 5);
             if (next == 0 && mana >= costMissile) {
                 return "missile";
@@ -71,7 +71,7 @@ function solve(input, part) {
         recharge = 0;
         shield = 0;
 
-        while (true) {
+        for (;;) {
             if(poison > 0) {
                 poison--;
                 boss -= 3;

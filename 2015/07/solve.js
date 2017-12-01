@@ -44,7 +44,7 @@ function getInstructions(input) {
 function runInstructions(ins) {
     var i;
     
-    while (i = ins.shift()) {
+    while ((i = ins.shift()) !== undefined) {
         try {
             state[i.target] = i.action(i.params);
         }

@@ -9,7 +9,7 @@ function expected(part) {
 
 function isRed(obj) {
     if (obj.constructor == Array) return false;
-    for(j in obj) {
+    for(let j in obj) {
         if (obj[j] === "red") return true;
     }
     return false;
@@ -19,7 +19,7 @@ function sum(obj,avoid) {
     let total = 0;
     if (typeof(obj) === "object") {
         if (!avoid(obj)) {
-            for (j in obj) {
+            for (let j in obj) {
                 total += sum(obj[j],avoid);
             }
         }
@@ -32,7 +32,7 @@ function sum(obj,avoid) {
 
 function part1(input) {
     let j = JSON.parse(input.join("\n"))
-    return sum(j,(o => false));
+    return sum(j,(() => false));
 }
 
 function part2(input) {

@@ -12,7 +12,6 @@ function countNice(input, isNice) {
 }
 
 function part1(input) {
-    const naughtyStrings = ["ab", "cd", "pq", "xy"];
     const hasThreeVowels = /[aeiou].*[aeiou].*[aeiou]/g;
     const hasDoubleLetter = /(\w)\1+/g;
     const containsNaughtyString = /ab|cd|pq|xy/g;

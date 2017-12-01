@@ -1,7 +1,7 @@
 let { matches } = require('../../utils/utils')
 
 function solve(input, part) {
-    let sues = input.map(s => [...matches(s,/(\w+)\: (\d+)/g)].reduce((acc,m) => {
+    let sues = input.map(s => [...matches(s,/(\w+): (\d+)/g)].reduce((acc,m) => {
         acc[m[1]] = Number(m[2]); return acc;} ,{} ));
 
     if (part === 1) {

@@ -120,7 +120,7 @@ function bfs(isSolution, getChildren, start)  {
 // way to get all matches for a regex
 function* matches(str, regex) {
     let match;
-    while(match = regex.exec(str)) {
+    while((match = regex.exec(str)) !== null) {
         yield match;
     }
     return matches;

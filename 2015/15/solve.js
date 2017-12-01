@@ -1,10 +1,8 @@
-let utils = require("../../utils/utils");
-
 function solve(input, part) {
-    let ingredients = input.map(f => f.match(/\-?\d+/g).map(n => Number(n)));
+    let ingredients = input.map(f => f.match(/-?\d+/g).map(n => Number(n)));
     let max = -1;
     for(let c of distribute4(100)) {
-        s = scoreCookie(ingredients, c);
+        let s = scoreCookie(ingredients, c);
         if (part == 2 && s.calories != 500) s.score= -1;
         max = Math.max(s.score,max);
     }
@@ -30,14 +28,5 @@ function scoreCookie(ingredients, amounts) {
     let score = (Math.max(0,total[0]) * Math.max(0,total[1]) * Math.max(0,total[2]) * Math.max(0,total[3]))
     return { score, calories:total[4]};
 }
-
-function part1(input) {
-
-}
-
-function part2(input) {
-
-}
-
 
 module.exports = {solve,expected};

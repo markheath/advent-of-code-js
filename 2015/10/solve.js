@@ -23,7 +23,7 @@ function getRepeatedLength(repetitions,input) {
     let start = Array.from(input).map(c => c - '0');
 
     return [...range(1,repetitions)]
-            .reduce((acc,x) => flatMap(groupAdjacent(acc),g => [g.length, g[0]]), start).length;
+            .reduce(acc => flatMap(groupAdjacent(acc),g => [g.length, g[0]]), start).length;
 }
 
 function part1(input) {

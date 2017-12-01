@@ -1,4 +1,4 @@
-let {scan,range,maxBy,max} = require("../../utils/utils");
+let {scan,range,max} = require("../../utils/utils");
 
 function solve(input, part) {
     let lookup = getLookup(input);
