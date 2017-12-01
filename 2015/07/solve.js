@@ -15,7 +15,7 @@ let isLetter = c => c >= 'a' && c <= 'z';
 let getVal = function(x) {
     if (isLetter(x[0])) {
         if (x in state) return state[x];
-        throw "oops";
+        throw new Error("oops");
     }
     return parseInt(x);
 } 
@@ -34,7 +34,7 @@ function selector(p) {
     else if (p[1] === "LSHIFT") return lshift;
     else if (p[1] === "RSHIFT") return rshift;
     else if (p[0] === "NOT") return not;
-    throw `unknown selector ${p}`;
+    throw new Error(`unknown selector ${p}`);
 }
 
 function getInstructions(input) {
@@ -49,7 +49,7 @@ function runInstructions(ins) {
             state[i.target] = i.action(i.params);
         }
         catch(ex) {
-            if (ex === "oops") {
+            if (ex.message === "oops") {
                 ins.push(i);
             }
             else {

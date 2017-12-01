@@ -36,7 +36,7 @@ function runInstructions(registers, instructions) {
                 index += parseInt(ins[1]);
                 break;
             default:
-                throw "not implemented " + ins[0];
+                throw new Error("not implemented " + ins[0]);
         }
     }
     return registers;
