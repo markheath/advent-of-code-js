@@ -1,5 +1,7 @@
+let { matches } = require('../../utils/utils')
+
 function solve(input, part) {
-    let sues = input.map(s => matches(s,/(\w+)\: (\d+)/g).reduce((acc,m) => {
+    let sues = input.map(s => [...matches(s,/(\w+)\: (\d+)/g)].reduce((acc,m) => {
         acc[m[1]] = Number(m[2]); return acc;} ,{} ));
 
     if (part === 1) {
@@ -16,15 +18,6 @@ function every(obj, matcher) {
     return true;
 }
 
-// way to get all matches for a regex as array
-function matches(str, regex) {
-    let matches = [];
-    let match;
-    while(match = regex.exec(str)) {
-        matches.push(match);
-    }
-    return matches;
-}
 
 
 let clues = {

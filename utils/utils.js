@@ -117,4 +117,14 @@ function bfs(isSolution, getChildren, start)  {
     return search();
 }
 
-module.exports = { scan,pairwise,permutations,flatMap,range,sumBy,maxBy,minBy,bfs,min,max,shuffle }
+// way to get all matches for a regex
+function* matches(str, regex) {
+    let match;
+    while(match = regex.exec(str)) {
+        yield match;
+    }
+    return matches;
+}
+
+
+module.exports = { scan,pairwise,permutations,flatMap,range,sumBy,maxBy,minBy,bfs,min,max,shuffle,matches }
