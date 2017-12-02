@@ -29,3 +29,8 @@ To run Jasmine unit tests
 ```
 npm test
 ```
+
+## Blog posts about 2017 solutions
+
+- [Day 1](http://markheath.net/post/advent-of-code-2017-day-1)
+- [Day 2](http://markheath.net/post/advent-of-code-2017-day-2)
