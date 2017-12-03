@@ -1,27 +1,40 @@
-//const {max,min} = require('../../utils/utils')
-
 function solve(input, part) {
-    let startingSquare = Number(input[0]);
-    console.log(distanceTo(1)) // 0 
-    console.log(distanceTo(12)) //3
-    console.log(distanceTo(23)) //2
-    console.log(distanceTo(1024)) //31
-    return distanceTo(startingSquare);
+    const startingSquare = Number(input[0]);
+    if (part === 1) {
+        const distanceTo = targetNumber => {
+            let c = 1;
+            let nextNumber = () => ++c;
+            let p = find(n => n === targetNumber, nextNumber)
+            return Math.abs(p.pos[0]) + Math.abs(p.pos[1]);
+        }
+        //console.log(distanceTo(12)) //3
+        //console.log(distanceTo(23)) //2
+        //console.log(distanceTo(1024)) //31
+        return distanceTo(startingSquare);
+    }
+    else {
+        const getAtPos = (x,y,state) => state[`${x},${y}`] || 0;
+        const nextNumber = ([x,y],state) => 
+            getAtPos(x+1,y,state) + getAtPos(x+1,y-1,state) + getAtPos(x,y-1,state) + getAtPos(x-1,y-1,state) + 
+            getAtPos(x-1,y,state) + getAtPos(x-1,y+1,state) + getAtPos(x,y+1,state) + getAtPos(x+1,y+1,state);
+        return find(n => n > startingSquare, nextNumber).n;
+    }
 }
 
-function distanceTo(targetNumber) {
-    for(let p of numberPlacement()) {
-        if (p.n === targetNumber) {
-            return Math.abs(p.pos[0]) + Math.abs(p.pos[1]);
+function find(isTarget, nextNumber) {
+    let state = { "0,0": 1 };
+    for(let p of numberPlacement(p => nextNumber(p,state))) {
+        state[`${p.pos[0]},${p.pos[1]}`] = p.n;
+        if (isTarget(p.n)) {
+            return p;
         }
     }
 }
 
 // placement of next number R1 U1 L2 D2 R3 U3 L4 D4 R5
-function* numberPlacement() {
+function* numberPlacement(nextNumber) {
     const dir = "RULD";
     let [x,y] = [0,0];
-    let curNumber = 1;
     let dirIndex = 0;
     let dist = 1;
     let move = () => {
@@ -33,11 +46,11 @@ function* numberPlacement() {
         }
         return [x,y];
     }
-    yield { n: curNumber, pos: [x,y]}
     for(;;) {
         for(let q = 0; q < 2; q++) {
             for(let n = 0; n < dist; n++) {
-                yield { n: ++curNumber, pos: move()}
+                let nextPos = move();
+                yield { n: nextNumber(nextPos), pos: nextPos}
             }
             dirIndex++;
             dirIndex = dirIndex%dir.length;
@@ -46,8 +59,6 @@ function* numberPlacement() {
     }
 }
 
-
-
-const expected = part => part === 1 ? 430 : -1;
+const expected = part => part === 1 ? 430 : 312453;
 
 module.exports = {solve,expected};
