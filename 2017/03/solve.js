@@ -13,7 +13,7 @@ function solve(input, part) {
         return distanceTo(startingSquare);
     }
     else {
-        const getAtPos = (x,y,state) => state[`${x},${y}`] || 0;
+        const getAtPos = (x,y,state) => state[[x,y]] || 0;
         const nextNumber = ([x,y],state) => 
             getAtPos(x+1,y,state) + getAtPos(x+1,y-1,state) + getAtPos(x,y-1,state) + getAtPos(x-1,y-1,state) + 
             getAtPos(x-1,y,state) + getAtPos(x-1,y+1,state) + getAtPos(x,y+1,state) + getAtPos(x+1,y+1,state);
@@ -22,9 +22,10 @@ function solve(input, part) {
 }
 
 function find(isTarget, nextNumber) {
-    let state = { "0,0": 1 };
+    let state = { };
+    state[[0,0]] = 1
     for(let p of numberPlacement(p => nextNumber(p,state))) {
-        state[`${p.pos[0]},${p.pos[1]}`] = p.n;
+        state[p.pos] = p.n;
         if (isTarget(p.n)) {
             return p;
         }
