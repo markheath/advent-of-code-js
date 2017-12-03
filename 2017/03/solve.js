@@ -13,10 +13,8 @@ function solve(input, part) {
         return distanceTo(startingSquare);
     }
     else {
-        const getAtPos = (x,y,state) => state[[x,y]] || 0;
         const nextNumber = ([x,y],state) => 
-            getAtPos(x+1,y,state) + getAtPos(x+1,y-1,state) + getAtPos(x,y-1,state) + getAtPos(x-1,y-1,state) + 
-            getAtPos(x-1,y,state) + getAtPos(x-1,y+1,state) + getAtPos(x,y+1,state) + getAtPos(x+1,y+1,state);
+            [[1,0],[1,-1],[0,-1],[-1,-1],[-1,0],[-1,1],[0,1],[1,1]].reduce((acc,[a,b]) => acc + (state[[x+a,y+b]] || 0), 0);
         return find(n => n > startingSquare, nextNumber).n;
     }
 }
