@@ -36,3 +36,4 @@ npm test
 - [Day 2](http://markheath.net/post/advent-of-code-2017-day-2)
 - [Day 3](http://markheath.net/post/advent-of-code-2017-day-3)
 - [Day 4](http://markheath.net/post/advent-of-code-2017-day-4)
+- [Day 5](http://markheath.net/post/advent-of-code-2017-day-5)
