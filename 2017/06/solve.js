@@ -27,17 +27,14 @@ function findMaxIndex(arr) {
 
 function countRedistributions(state) {
     let seenStates = new Map();
-    seenStates.set(state.toString(), 0);
+    let key = state.toString()
     let redistributions = 0;
-    for(;;) {
+    while(!seenStates.has(key)) {
+        seenStates.set(key, redistributions++);
         state = redistribute(state);
-        let key = state.toString();
-        redistributions++;
-        if(seenStates.has(key)) break;
-        seenStates.set(key, redistributions);
-        //console.log(seenStates, redistributions);
+        key = state.toString();
     }
-    return { redistributions: redistributions, loopSize: redistributions - seenStates.get(state.toString()) };
+    return { redistributions: redistributions, loopSize: redistributions - seenStates.get(key) };
 }
 
 function redistribute(banks) {
