@@ -29,17 +29,6 @@ function countRedistributions(state) {
     return { redistributions: redistributions, loopSize: redistributions - seenStates.get(key) };
 }
 
-function redistributeSimple(banks) {
-    const maxIndex = findMaxIndex(banks);
-    // redistribute
-    let amount = banks[maxIndex];
-    banks[maxIndex] = 0;
-    for(let n = maxIndex + 1; amount > 0; n++, amount--) {
-        banks[n % banks.length] += 1;
-    }
-    return banks;
-}
-
 function redistribute(banks) {
     const maxIndex = findMaxIndex(banks);
     // banks = Array.from(banks); - to make the function pure
