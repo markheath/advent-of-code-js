@@ -7,14 +7,6 @@ function solve(input, part) {
     else {
         return countRedistributions(banks).loopSize;
     }
-    /*let banks = [0,2,7,0]
-        //console.log(countRedistributions([0,2,7,0]));
-    console.log(redistribute(banks))
-    console.log(redistribute(banks))
-    console.log(redistribute(banks))
-    console.log(redistribute(banks))
-    console.log(redistribute(banks))
-*/
 }
 
 function findMaxIndex(arr) {
@@ -37,7 +29,7 @@ function countRedistributions(state) {
     return { redistributions: redistributions, loopSize: redistributions - seenStates.get(key) };
 }
 
-function redistribute(banks) {
+function redistributeSimple(banks) {
     const maxIndex = findMaxIndex(banks);
     // redistribute
     let amount = banks[maxIndex];
@@ -48,6 +40,20 @@ function redistribute(banks) {
     return banks;
 }
 
+function redistribute(banks) {
+    const maxIndex = findMaxIndex(banks);
+    // banks = Array.from(banks); - to make the function pure
+    // redistribute
+    const amount = banks[maxIndex];
+    const addToEach = Math.floor(amount/banks.length);
+    const extras = amount % banks.length;
+    banks[maxIndex] = 0;
+    for(let n = 0; n < banks.length; n++) {
+        banks[(n + maxIndex + 1) % banks.length] += addToEach + ((n < extras) ? 1: 0);
+    }
+    return banks;
+}
+
 const expected = part => part === 1 ? 4074 : 2793;
 
-module.exports = {solve,expected};
+module.exports = {solve,expected,redistribute,countRedistributions};
