@@ -1,10 +1,14 @@
 function solve(input, part) {
+    const banks = input[0].split('\t').map(Number);
+    
     if (part === 1) {
-        const banks = input[0].split('\t').map(Number);
-        //console.log(countRedistributions([0,2,7,0]));
-        return countRedistributions(banks);
+        return countRedistributions(banks).redistributions;
+    }
+    else {
+        return countRedistributions(banks).loopSize;
     }
     /*let banks = [0,2,7,0]
+        //console.log(countRedistributions([0,2,7,0]));
     console.log(redistribute(banks))
     console.log(redistribute(banks))
     console.log(redistribute(banks))
@@ -22,16 +26,18 @@ function findMaxIndex(arr) {
 }
 
 function countRedistributions(state) {
-    let seenStates = new Set();
-    seenStates.add(state.toString());
+    let seenStates = new Map();
+    seenStates.set(state.toString(), 0);
     let redistributions = 0;
-    do {
+    for(;;) {
         state = redistribute(state);
-        seenStates.add(state.toString());
+        let key = state.toString();
+        redistributions++;
+        if(seenStates.has(key)) break;
+        seenStates.set(key, redistributions);
         //console.log(seenStates, redistributions);
     }
-    while(seenStates.size > redistributions++);
-    return redistributions - 1;
+    return { redistributions: redistributions, loopSize: redistributions - seenStates.get(state.toString()) };
 }
 
 function redistribute(banks) {
@@ -45,7 +51,6 @@ function redistribute(banks) {
     return banks;
 }
 
-
-const expected = part => part === 1 ? 4074 : -1;
+const expected = part => part === 1 ? 4074 : 2793;
 
 module.exports = {solve,expected};
