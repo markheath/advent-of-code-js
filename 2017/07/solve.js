@@ -1,12 +1,16 @@
-function solve(input, part) {
-    let programs = parseInput(input);
-    let tree = buildTree(programs);
-    let root = findRoot(tree)
-    if (part === 1) {
-        return root.name;
-    } else {
-        return findUnbalancedNode(root).correctWeight;
-    }
+const solve = (input, part) => ((part === 1) ? part1 : part2)(input);
+
+const part1 = input => findRoot(buildTree(parseInput(input))).name;
+
+function part2(input) {
+    const root = findRoot(buildTree(parseInput(input)));
+    return findUnbalancedNode(root).correctWeight;
+}
+
+function findDifferentIndex(arr) {
+    let n = arr.findIndex(w => w !== arr[0])
+    if (n < 0) return [-1];
+    return (n === 1 && arr[n] === arr[arr.length - 1]) ? [0,n] : [n,0];
 }
 
 function findUnbalancedNode(node) {
@@ -17,12 +21,11 @@ function findUnbalancedNode(node) {
     }
 
     let weights = node.children.map(getNodeWeight);
-    let n = weights.findIndex(w => w !== weights[0])
-    if (n < 0) { // all same
+    let [differentIndex,correctIndex] = findDifferentIndex(weights);
+    if (differentIndex < 0) { // all same
         return;
     }
     else {
-        let [differentIndex,correctIndex] = (n === 1 && weights[n] === weights[weights.length - 1]) ? [0,n] : [n,0];
         let difference = weights[differentIndex] - weights[correctIndex];
         let differentNode = node.children[differentIndex];
         //console.log("different", node.name, differentNode.name, differentNode.weight, difference, weights, differentIndex,correctIndex)
@@ -54,21 +57,6 @@ function buildTree(programs) {
     return programs; 
 }
 
-
-const testInput = [ "pbga (66)",
-"xhth (57)",
-"ebii (61)",
-"havc (66)",
-"ktlj (57)",
-"fwft (72) -> ktlj, cntj, xhth",
-"qoyq (66)",
-"padx (45) -> pbga, havc, qoyq",
-"tknk (41) -> ugml, padx, fwft",
-"jptl (61)",
-"ugml (68) -> gyxo, ebii, jptl",
-"gyxo (61)",
-"cntj (57)`;" ]
-
 const expected = part => part === 1 ? "xegshds" : 299;
 
-module.exports = {solve,expected};
+module.exports = {solve,expected,part1,part2,findDifferentIndex};
