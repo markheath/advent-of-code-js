@@ -6,7 +6,7 @@ function solve(input, part) {
     if (part === 1) {
         return root.name;
     } else {
-        return findUnbalancedNode(root).name;
+        return findUnbalancedNode(root).correctWeight;
     }
     //console.log ()
 }
@@ -22,10 +22,12 @@ function findUnbalancedNode(node) {
         }
     }
     else {
-        let differentIndex = weights[0] === weights[weights.length - 1] ? n : 0;
-        console.log("different", differentIndex, weights)
-        
-        return node.children[differentIndex];
+        let [differentIndex,correctIndex] = weights[0] === weights[weights.length - 1] ? [n,0] : [0,n];
+        let difference = weights[differentIndex] - weights[correctIndex];
+        let differentNode = node.children[differentIndex];
+        console.log("different", differentNode.name, differentNode.weight, difference, differentIndex, weights)
+        // 66057 wrong answer
+        return {differentNode,correctWeight:differentNode.weight - difference};
     }
 }
 
