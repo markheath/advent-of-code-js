@@ -1,10 +1,32 @@
 function solve(input, part) {
     let programs = parseInput(input);
+    let tree = buildTree(programs);
+    let root = findRoot(tree)
     //console.log(buildTree(parseInput(testInput)))
     if (part === 1) {
-        return findRoot(buildTree(programs));
+        return root.name;
+    } else {
+        return findUnbalancedNode(root).name;
     }
     //console.log ()
+}
+
+function findUnbalancedNode(node) {
+    if (node.children.length === 0) return;
+    let weights = node.children.map(getNodeWeight);
+    let n = weights.findIndex(w => w !== weights[0])
+    if (n < 0) { // all same
+        for(let c of node.children) {
+            let unbalanced = findUnbalancedNode(c);
+            if (unbalanced) return unbalanced;
+        }
+    }
+    else {
+        let differentIndex = weights[0] === weights[weights.length - 1] ? n : 0;
+        console.log("different", differentIndex, weights)
+        
+        return node.children[differentIndex];
+    }
 }
 
 const parseInput = input => input.map(x => 
@@ -12,7 +34,11 @@ const parseInput = input => input.map(x =>
     .map(g => ({name:g[1],weight:Number(g[2]),children:g[4]?g[4].split(', '):[],parents:[] }))
 
 function findRoot(programs) {
-    return programs.find(p => p.parents.length === 0).name;
+    return programs.find(p => p.parents.length === 0);
+}
+
+function getNodeWeight(node) {
+    return node.weight + node.children.reduce((a,b) => a + getNodeWeight(b),0)
 }
 
 function buildTree(programs) {
