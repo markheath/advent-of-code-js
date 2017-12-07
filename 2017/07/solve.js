@@ -2,7 +2,7 @@ function solve(input, part) {
     let programs = parseInput(input);
     //console.log(buildTree(parseInput(testInput)))
     if (part === 1) {
-        return buildTree(programs);
+        return findRoot(buildTree(programs));
     }
     //console.log ()
 }
@@ -11,15 +11,20 @@ const parseInput = input => input.map(x =>
     /(\w+) \((\d+)\)( -> ([\w, ]+))?/.exec(x))
     .map(g => ({name:g[1],weight:Number(g[2]),children:g[4]?g[4].split(', '):[],parents:[] }))
 
+function findRoot(programs) {
+    return programs.find(p => p.parents.length === 0).name;
+}
+
 function buildTree(programs) {
     let nodes = new Map(programs.map(p => [p.name,p]));
     
     for(let p of programs) {
+        p.children = p.children.map(c => nodes.get(c))
         for(let c of p.children) {
-            nodes.get(c).parents.push(nodes.get(p.name))
+            c.parents.push(nodes.get(p.name))
         }
     }
-    return programs.find(p => p.parents.length === 0).name;
+    return programs; 
 }
 
 
