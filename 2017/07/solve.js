@@ -2,31 +2,30 @@ function solve(input, part) {
     let programs = parseInput(input);
     let tree = buildTree(programs);
     let root = findRoot(tree)
-    //console.log(buildTree(parseInput(testInput)))
     if (part === 1) {
         return root.name;
     } else {
         return findUnbalancedNode(root).correctWeight;
     }
-    //console.log ()
 }
 
 function findUnbalancedNode(node) {
     if (node.children.length === 0) return;
+    for(let c of node.children) {
+        let unbalanced = findUnbalancedNode(c);
+        if (unbalanced) return unbalanced;
+    }
+
     let weights = node.children.map(getNodeWeight);
     let n = weights.findIndex(w => w !== weights[0])
     if (n < 0) { // all same
-        for(let c of node.children) {
-            let unbalanced = findUnbalancedNode(c);
-            if (unbalanced) return unbalanced;
-        }
+        return;
     }
     else {
-        let [differentIndex,correctIndex] = weights[0] === weights[weights.length - 1] ? [n,0] : [0,n];
+        let [differentIndex,correctIndex] = (n === 1 && weights[n] === weights[weights.length - 1]) ? [0,n] : [n,0];
         let difference = weights[differentIndex] - weights[correctIndex];
         let differentNode = node.children[differentIndex];
-        console.log("different", differentNode.name, differentNode.weight, difference, differentIndex, weights)
-        // 66057 wrong answer
+        //console.log("different", node.name, differentNode.name, differentNode.weight, difference, weights, differentIndex,correctIndex)
         return {differentNode,correctWeight:differentNode.weight - difference};
     }
 }
@@ -70,6 +69,6 @@ const testInput = [ "pbga (66)",
 "gyxo (61)",
 "cntj (57)`;" ]
 
-const expected = part => part === 1 ? "xegshds" : -1;
+const expected = part => part === 1 ? "xegshds" : 299;
 
 module.exports = {solve,expected};
