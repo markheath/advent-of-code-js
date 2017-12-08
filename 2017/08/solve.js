@@ -1,13 +1,19 @@
 let { maxBy } = require('../../utils/utils')
 
+let largest = 0;
 function solve(input, part) {
     const instructions = input.map(parseInstruction);
+    largest = 0
     let state = new Map()
     executeInstructions(state,instructions)
-    let maxReg = maxBy(state, ([key,val]) => val)
-    console.log(state)
-    console.log(maxReg)
-    return part; // 1915 wrong
+    if (part === 1) {
+        let maxReg = maxBy(state, ([,val]) => val)
+        //console.log(maxReg)
+        return maxReg[1];
+    }
+    else {
+        return largest;
+    }
 }
 
 const testInstructions = [
@@ -28,7 +34,9 @@ function parseInstruction(instruction) {
 function executeInstructions(registers, instructions) {
     for (let i of instructions) {
         if (testRegister(registers.get(i.testReg) || 0, i.testOp, i.testAmount)) {
-            registers.set(i.target, applyOp(registers.get(i.target) || 0, i.op, i.amount));
+            let newValue = applyOp(registers.get(i.target) || 0, i.op, i.amount)
+            largest = Math.max(largest,newValue)
+            registers.set(i.target, newValue);
         }
     }
 }
@@ -53,6 +61,6 @@ function applyOp(value, op, amount) {
     }
 }
 
-const expected = part => part === 1 ? -1 : -1;
+const expected = part => part === 1 ? 4877 : 5471;
 
 module.exports = {solve,expected};
