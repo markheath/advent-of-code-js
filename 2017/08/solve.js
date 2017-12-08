@@ -2,50 +2,31 @@ let { max } = require('../../utils/utils')
 
 function solve(input, part) {
     const instructions = input.map(parseInstruction);
-    let state = new Map()
-    const largest = executeInstructions(state,instructions)
-    return (part === 1) ? max(state.values()) : largest;
+    const {largest,registers} = executeInstructions(instructions)
+    return (part === 1) ? max(registers.values()) : largest;
 }
 
 function parseInstruction(instruction) {
-    let g = /(\w+) (\w+) (-?\d+) if (\w+) ([<>=!]+) (-?\d+)/.exec(instruction)
-    return { target: g[1], op: g[2], amount: Number(g[3]), testReg: g[4], testOp: g[5], testAmount: Number(g[6]) };
+    const g = /(\w+) (\w+) (-?\d+) if (\w+) ([<>=!]+) (-?\d+)/.exec(instruction)
+    return { action: {reg:g[1], op:g[2], amount:Number(g[3])}, test: {reg:g[4], op:g[5], amount:Number(g[6])} };
 }
 
-function executeInstructions(registers, instructions) {
+function executeInstructions(instructions) {
+    const registers = new Map();
     let largest = 0;
-    for (let i of instructions) {
-        if (applyOp(registers.get(i.testReg) || 0, i.testOp, i.testAmount)) {
-            let newValue = applyOp(registers.get(i.target) || 0, i.op, i.amount)
+    const applyOpToReg = ({reg,op,amount}) => applyOp(registers.get(reg) || 0, op, amount)
+    for (let {action,test} of instructions) {
+        if (applyOpToReg(test)) {
+            let newValue = applyOpToReg(action)
             largest = Math.max(largest,newValue)
-            registers.set(i.target, newValue);
+            registers.set(action.reg, newValue);
         }
     }
-    return largest;
+    return {largest,registers};
 }
 
 const ops = {'<':(a,b)=>a<b,'>':(a,b)=>a>b,'<=':(a,b)=>a<=b,'>=':(a,b)=>a>=b,'!=':(a,b)=>a!==b,'==':(a,b)=>a===b,'inc':(a,b)=>a+b,'dec':(a,b)=>a-b };
 const applyOp = (val,op,amt) => ops[op](val,amt)
-
-function testRegister1(value, op, amount) {
-    switch(op) {
-        case '<': return value < amount;
-        case '>': return value > amount;
-        case '<=': return value <= amount;
-        case '>=': return value >= amount;
-        case '!=': return value !== amount;
-        case '==': return value === amount;
-        default: throw new Error("invalid test op " + op)
-    }
-}
-
-function applyOp1(value, op, amount) {
-    switch(op) {
-        case 'inc': return value + amount;
-        case 'dec': return value - amount;
-        default: throw new Error("invalid op " + op)
-    }
-}
 
 const expected = part => part === 1 ? 4877 : 5471;
 
