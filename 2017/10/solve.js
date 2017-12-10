@@ -1,10 +1,9 @@
+const {range,batch} = require('../../utils/utils')
 function solve(input, part) {
-
     if (part === 1) {
-        let start = new Array(256);
-        for(let n = 0; n < start.length; n++) start[n] = n;
-            let lengths = input[0].split(',').map(n => Number(n))
-        let {result} = applyLengths(start,lengths)
+        let state = Array.from(range(0,256));
+        let lengths = input[0].split(',').map(n => Number(n))
+        let {result} = applyLengths(state,lengths)
         return result[0] * result[1];
     }
     else {
@@ -15,8 +14,7 @@ function solve(input, part) {
 const expected = part => part === 1 ? 20056 : "d9a7de4a809c56bf3a9465cb84392c8e";
 
 function hashString(str) {
-    let start = new Array(256);
-    for(let n = 0; n < start.length; n++) start[n] = n;
+    let start = Array.from(range(0,256));
     let lengths = [...str].map(c => c.charCodeAt(0)).concat([17, 31, 73, 47, 23])
     let currentPos = 0
     let skipSize = 0
@@ -24,11 +22,8 @@ function hashString(str) {
         ({result:start,currentPos,skipSize} = applyLengths(start,lengths,currentPos,skipSize));
     }
     let hash = ""
-    for(let n = 0; n < 16; n++) {
-        let xor = 0
-        for(let x = 0; x<16; x++) {
-            xor ^= start[n*16+x]
-        }
+    for(let b of batch(start,16)) {
+        let xor = b.reduce((a,b) => a^b)
         hash+= ("0" + xor.toString(16)).slice(-2)
     }
     return hash;

@@ -58,6 +58,19 @@ function* range(start, count) {
     }
 }
 
+function* batch(seq, size) {
+    let b = []
+    for(let el of seq) {
+        b.push(el)
+        if (b.length === size) {
+            yield b;
+            b = []
+        }
+    }
+    if (b.length > 0)
+        yield b
+}
+
 function sumBy(seq, selector) {
     let total = 0;
     for(let n of seq) {
@@ -127,4 +140,4 @@ function* matches(str, regex) {
 }
 
 
-module.exports = { scan,pairwise,permutations,flatMap,range,sumBy,maxBy,minBy,bfs,min,max,shuffle,matches }
+module.exports = { scan,pairwise,permutations,flatMap,range,sumBy,maxBy,minBy,bfs,min,max,shuffle,matches,batch }
