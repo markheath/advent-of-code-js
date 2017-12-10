@@ -1,8 +1,22 @@
 function solve(input, part) {
-    return part;
+    let lengths = input[0].split(',').map(n => Number(n))
+    let start = new Array(256);
+    for(let n = 0; n < start.length; n++) start[n] = n;
+    let applied = applyLengths(start,lengths)
+    return part === 1 ? applied[0] * applied[1] : -1;
 }
 
-const expected = part => part === 1 ? -1 : -1;
+const expected = part => part === 20056 ? -1 : -1;
+
+function applyLengths(list, lengths) {
+    let currentPos = 0;
+    let skipSize = 0;
+    for(let length of lengths) {
+        list = reverseSection(list, currentPos, length)
+        currentPos += length + skipSize++;
+    }
+    return list;
+}
 
 function reverseSection(list, currentPos, length) {
     let out = Array.from(list)
@@ -12,4 +26,4 @@ function reverseSection(list, currentPos, length) {
     return out;
 }
 
-module.exports = {solve,expected,reverseSection};
+module.exports = {solve,expected,reverseSection,applyLengths};
