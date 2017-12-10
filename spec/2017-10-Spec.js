@@ -14,7 +14,7 @@ describe("2017 day 10", function() {
     })
 
     it ("can apply lengths", function() {
-        let output = applyLengths([0,1,2,3,4],[3, 4, 1, 5]);
-        expect(output).toEqual([3,4,2,1,0]);
+        let {result} = applyLengths([0,1,2,3,4],[3, 4, 1, 5]);
+        expect(result).toEqual([3,4,2,1,0]);
     })
 });
