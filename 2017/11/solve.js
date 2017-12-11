@@ -1,16 +1,24 @@
 // https://www.redblobgames.com/grids/hexagons
 
 function solve(input, part) {
+    let [endPos,maxDist] = followPath(input[0])
     if (part === 1) {
         //console.log(distance(followPath("ne,ne,ne"))) 3
         //console.log(distance(followPath("ne,ne,sw,sw"))) 0
         //console.log(distance(followPath("ne,ne,s,s"))) 2
         //console.log(distance(followPath("se,sw,se,sw,sw"))) 3
-        return distance(followPath(input[0]))
+        return distance(endPos)
+    }
+    else {
+        return maxDist;
     }
 }
 
-const followPath = path => path.split(',').reduce((pos,dir) => move(pos,dir),[0,0,0])
+const followPath = path => path.split(',')
+                            .reduce(([pos,maxdist],dir) => {
+                                let newPos = move(pos,dir)
+                                return [newPos, Math.max(maxdist,distance(newPos))] }
+                                ,[[0,0,0],0])
 const move = (from,dir) => lookup[dir].map((v,n) => v+from[n])
 
 const distance = ([x,y,z]) => Math.max(Math.abs(x),Math.abs(y),Math.abs(z))
