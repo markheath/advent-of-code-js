@@ -40,3 +40,5 @@ npm test
 - [Day 6](http://markheath.net/post/advent-of-code-2017-day-6)
 - [Day 7](http://markheath.net/post/advent-of-code-2017-day-7)
 - [Day 8](http://markheath.net/post/advent-of-code-2017-day-8)
+- [Day 9](http://markheath.net/post/advent-of-code-2017-day-9)
+- [Day 10](http://markheath.net/post/advent-of-code-2017-day-10)
