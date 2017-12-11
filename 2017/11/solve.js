@@ -1,26 +1,16 @@
-// https://www.redblobgames.com/grids/hexagons
+// using 3d hex coordinates https://www.redblobgames.com/grids/hexagons
 
 function solve(input, part) {
-    let [endPos,maxDist] = followPath(input[0])
-    if (part === 1) {
-        //console.log(distance(followPath("ne,ne,ne"))) 3
-        //console.log(distance(followPath("ne,ne,sw,sw"))) 0
-        //console.log(distance(followPath("ne,ne,s,s"))) 2
-        //console.log(distance(followPath("se,sw,se,sw,sw"))) 3
-        return distance(endPos)
-    }
-    else {
-        return maxDist;
-    }
+    const [endPos,maxDist] = followPath(input[0])
+    return (part === 1) ? distance(endPos) : maxDist;
 }
 
-const followPath = path => path.split(',')
-                            .reduce(([pos,maxdist],dir) => {
-                                let newPos = move(pos,dir)
-                                return [newPos, Math.max(maxdist,distance(newPos))] }
-                                ,[[0,0,0],0])
+const updateState = ([pos,maxdist],dir) => {
+    const newPos = move(pos,dir)
+    return [newPos, Math.max(maxdist,distance(newPos))] 
+}
+const followPath = path => path.split(',').reduce(updateState,[[0,0,0],0])
 const move = (from,dir) => lookup[dir].map((v,n) => v+from[n])
-
 const distance = ([x,y,z]) => Math.max(Math.abs(x),Math.abs(y),Math.abs(z))
 
 const lookup = {
@@ -32,6 +22,6 @@ const lookup = {
     "sw": [-1,0,1],
 }
 
-const expected = part => part === 1 ? 664 : -1;
+const expected = part => part === 1 ? 664 : 1447;
 
 module.exports = {solve,expected};
