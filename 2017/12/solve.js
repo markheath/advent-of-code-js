@@ -53,6 +53,6 @@ const parse = s => {
     return {from,to:dest.split(', ')}
 }
 
-const expected = part => part === 1 ? 134 : -1;
+const expected = part => part === 1 ? 134 : 193;
 
 module.exports = {solve,expected};
