@@ -1,9 +1,33 @@
 function solve(input, part) {
+    //let x =testInput.map(parse)
+    //console.log(getGroup(0,x))
     //console.log(parse("4 <-> 2, 3, 6"))
     let programs = input.map(parse)
+    if (part === 1) {
+        return getGroup(0,programs).size
+    }
+    else {
+        //let programs = testInput.map(parse)
+        let groups = 0;
+        let inAnyGroup = new Set();
+        for(let g = 0; g < programs.length; g++) {
+            if(!inAnyGroup.has(g.toString())) {
+                groups++;
+                let group = getGroup(g,programs);
+                for(let m of group) {
+                    inAnyGroup.add(m)
+                }
+                //console.log(inAnyGroup)
+            }
+        }
+        return groups;
+    }
+}
+
+const getGroup = (start,programs) => {
     let s = new Set()
-    visit(s, programs[0].to, programs)
-    return s.size
+    visit(s, programs[start].to, programs)
+    return s;
 }
 
 const visit = (visited,destinations,programs) => {
