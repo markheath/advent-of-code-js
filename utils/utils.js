@@ -158,4 +158,20 @@ function first(seq, predicate) {
     }
 }
 
-module.exports = { scan,pairwise,permutations,flatMap,range,sumBy,maxBy,minBy,bfs,min,max,shuffle,matches,batch,sum,any,first }
+function* where(seq, filter) {
+    for (let el of seq) {
+        if (filter(el)) yield el;
+    }
+}
+
+function* map(seq, fn) {
+    for (let el of seq) {
+        yield fn(el);
+    }
+}
+
+module.exports = { 
+    scan,pairwise,permutations,flatMap,
+    range,sumBy,maxBy,minBy,bfs,
+    min,max,shuffle,matches,
+    batch,sum,any,first,where,map }
