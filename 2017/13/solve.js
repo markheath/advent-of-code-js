@@ -1,16 +1,14 @@
-const {max} = require('../../utils/utils')
+const {max,sum,any,first,range} = require('../../utils/utils')
 function solve(input, part) {
     const firewall = loadFirewall(input)
     if (part === 1) {
-        return scoreTrip(firewall,0).score
+        return scoreTrip(firewall,0)
     }
     else {
-        let f = loadFirewall(input)
-        for(let delay = 0; ; delay++) {
-            let {wasCaught} = scoreTrip(f,delay)
-            //console.log(`delay ${delay}: score ${score}`)
-            if (!wasCaught) return delay;
-        }
+        /*for(let delay = 0; ; delay++) {
+            if (!wasCaught(firewall,delay)) return delay;
+        }*/
+        return first(range(0),d => !wasCaught(firewall,d))
     }
 }
 
@@ -19,24 +17,36 @@ function loadFirewall(input) {
     .map(([,d,r]) => ([Number(d),Number(r)])))
 }
 
-function scoreTrip(firewall, delay) {
+const isCollision = (range,currentTime) => range > 0 && currentTime%(2 * (range - 1)) === 0;
+
+const scoreTrip = (firewall, delay) => sum(trip(firewall,delay));
+
+function wasCaught2(firewall,delay) {
+    for(let s of trip(firewall,delay)) return true;
+    return false;
+}
+
+const wasCaught3 = (firewall,delay) => !trip(firewall,delay)[Symbol.iterator]().next().done;
+
+const wasCaught = (firewall,delay) => any(trip(firewall,delay));
+
+
+function* trip2(firewall, delay) {
     const maxDepth = max(firewall.keys())
-    
-    let score = 0;
-    let wasCaught = false;
     for(let depth = 0; depth<=maxDepth; depth++) {
         let range = firewall.get(depth) || 0
-        if (range > 0) {
-            let period = 2 * (range - 1)
-            let currentTime = delay + depth
-            let caught = currentTime%period === 0;
-            if (caught) {
-                score += (depth*range);
-                wasCaught = true;
-            }
+        if (isCollision(range,delay+depth)) {
+            yield depth*range;
         }
     }
-    return {score,wasCaught};
+}
+
+function* trip(firewall, delay) {
+    for(let [depth,range] of firewall) {
+        if (isCollision(range,delay+depth)) {
+            yield depth*range;
+        }
+    }
 }
 
 

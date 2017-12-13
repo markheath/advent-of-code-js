@@ -53,7 +53,7 @@ function pairwise(arr) {
 }
 
 function* range(start, count) {
-    for (let n = 0; n < count; n++) {
+    for (let n = 0; typeof(count) === 'undefined' || n < count; n++) {
         yield start++;
     }
 }
@@ -78,6 +78,8 @@ function sumBy(seq, selector) {
     }
     return total;
 }
+
+const sum = sumBy; // alias
 
 function findBy(seq, selector, test) {
     let foundVal;
@@ -139,5 +141,21 @@ function* matches(str, regex) {
     return matches;
 }
 
+function any(seq, predicate) {
+    if (typeof(predicate) === 'undefined') 
+        return !seq[Symbol.iterator]().next().done
+    for(let el of seq) {
+        if (predicate(el)) return true;
+    }
+    return false;
+}
 
-module.exports = { scan,pairwise,permutations,flatMap,range,sumBy,maxBy,minBy,bfs,min,max,shuffle,matches,batch }
+function first(seq, predicate) {
+    if (typeof(predicate) === 'undefined') 
+        return seq[Symbol.iterator]().next().value
+    for(let el of seq) {
+        if (predicate(el)) return el;
+    }
+}
+
+module.exports = { scan,pairwise,permutations,flatMap,range,sumBy,maxBy,minBy,bfs,min,max,shuffle,matches,batch,sum,any,first }
