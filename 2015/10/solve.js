@@ -1,15 +1,14 @@
-let { range,flatMap } = require('../../utils/utils');
+let { range,flatMap,reduce } = require('../../utils/utils');
 
 function solve(input, part) {
-    var solver = part === 1 ? part1 : part2;
-    return solver(input[0]);
+    return getRepeatedLength(part === 1 ? 40:50, input[0]);
 }
 
 function expected(part) {
     return part == 1 ? 360154 : 5103798;
 }
 
-let groupAdjacent = a => a.reduce(function(prev, curr) {
+let groupAdjacent = a => reduce(a,function(prev, curr) {
     if (prev.length && curr === prev[prev.length - 1][0]) {
         prev[prev.length - 1].push(curr);
     }
@@ -19,19 +18,13 @@ let groupAdjacent = a => a.reduce(function(prev, curr) {
     return prev;
 }, []);
 
+const next = cur => [...flatMap(groupAdjacent(cur),g => [g.length, g[0]])]
+
 function getRepeatedLength(repetitions,input) {
     let start = Array.from(input).map(c => c - '0');
 
     return [...range(1,repetitions)]
-            .reduce(acc => flatMap(groupAdjacent(acc),g => [g.length, g[0]]), start).length;
+            .reduce(next, start).length;
 }
 
-function part1(input) {
-    return getRepeatedLength(40,input);
-}
-
-function part2(input) {
-    return getRepeatedLength(50,input);
-}
-
-module.exports = {solve,expected};
+module.exports = {solve,expected,groupAdjacent,next};

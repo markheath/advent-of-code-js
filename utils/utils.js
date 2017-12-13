@@ -36,12 +36,10 @@ function permutations(inputArr) {
     return permute(inputArr);
 }
 
-function flatMap(xs,f) {
-    let out = []
+function* flatMap(xs,f) {
     for (let x of xs) {
-        out.push(...f(x));
+        yield *f(x);
     }
-    return out;
 }
 
 function pairwise(arr) {
@@ -170,8 +168,23 @@ function* map(seq, fn) {
     }
 }
 
+function reduce(seq, fn, acc) {
+    for (let el of seq) {
+        acc = fn(acc,el);
+    }
+    return acc;
+}
+
+function count(seq) {
+    let it = seq[Symbol.iterator]()
+    let n = 0;
+    while(!it.next().done) n++;
+    return n;
+}
+
 module.exports = { 
     scan,pairwise,permutations,flatMap,
     range,sumBy,maxBy,minBy,bfs,
     min,max,shuffle,matches,
-    batch,sum,any,first,where,map }
+    batch,sum,any,first,where,map,count,reduce 
+}
