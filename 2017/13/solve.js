@@ -1,4 +1,4 @@
-const {max,sum,any,first,range} = require('../../utils/utils')
+const {sum,any,first,range} = require('../../utils/utils')
 
 function solve(input, part) {
     const firewall = loadFirewall(input)
@@ -10,7 +10,7 @@ function loadFirewall(input) {
     .map(([,d,r]) => ([Number(d),Number(r)])))
 }
 
-const isCollision = (range,currentTime) => range > 0 && currentTime%(2 * (range - 1)) === 0;
+const isCollision = (range,currentTime) => currentTime%(2 * (range - 1)) === 0;
 
 const scoreTrip = (firewall, delay) => sum(trip(firewall,delay));
 
