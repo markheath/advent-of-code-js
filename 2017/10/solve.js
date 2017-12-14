@@ -7,11 +7,19 @@ function solve(input, part) {
         return result[0] * result[1];
     }
     else {
-        return hashString(input[0])
+        return toHex(hashString(input[0]))
     }
 }
 
 const expected = part => part === 1 ? 20056 : "d9a7de4a809c56bf3a9465cb84392c8e";
+
+function toHex(hashBytes) {
+    let hash = ""
+    for(let b of hashBytes) {
+        hash+= ("0" + b.toString(16)).slice(-2)
+    }
+    return hash
+}
 
 function hashString(str) {
     let start = Array.from(range(0,256));
@@ -21,10 +29,9 @@ function hashString(str) {
     for(let n = 0; n < 64; n++) {
         ({result:start,currentPos,skipSize} = applyLengths(start,lengths,currentPos,skipSize));
     }
-    let hash = ""
+    let hash = []
     for(let b of batch(start,16)) {
-        let xor = b.reduce((a,b) => a^b)
-        hash+= ("0" + xor.toString(16)).slice(-2)
+        hash.push(b.reduce((a,b) => a^b))
     }
     return hash;
 }
