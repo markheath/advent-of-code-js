@@ -1,19 +1,15 @@
 const {hashString} = require('../10/solve')
 
+let grid;
+
 function solve(input, part) {
-    //console.log(bitsSet(1))
-    //console.log(bitsSet(2))
-    //console.log(bitsSet(3))
-    //console.log(bitsSet(255))
+    grid = grid || buildGrid(input[0]); // perf optimize by remembering the grid from part 1
     if (part === 1) {
         let totalBits = 0;
-        for(let n = 0; n < 128; n++) {
-            totalBits += getRow(input[0],n).reduce((a,b) => a + bitsSet(b),0)
-        }
+        for(let x = 0; x < 128; x++) { for(let y = 0; y < 128; y++) totalBits += grid[x][y] === '#'?1:0 }
         return totalBits;
     }
     else {
-        let grid = buildGrid(input[0]);
         return countRegions(grid); // test input shoud be 1242
     }
     //console.log(hashString("flqrgnkx-0")[0].toString(2));
@@ -35,7 +31,6 @@ const countRegions = grid => {
 }
 
 const clearRegion = (grid,x,y) => {
-    //if(x < 0 || y < 0 || x >= grid.length || y >= grid[x].length) return;
     if(grid[x][y] !== '#') return
     grid[x][y] = '.';
     if(y+1 < grid[x].length) clearRegion(grid,x,y+1)
@@ -68,24 +63,6 @@ const expandHash = hash => {
 }
 
 const getRow = (key,row) => hashString(`${key}-${row}`)
-
-function bitsSet(byte) {
-    let n = 0;
-    for(let c of byte.toString(2)) {
-        if (c === '1') n++;
-    }
-    return n;
-}
-
-function bitsSet2(n) {
-    let count = 0;
-    while (n)
-    {
-      n &= (n-1);
-      count++;
-    }
-    return count;
-}
 
 const expected = part => part === 1 ? 8106 : 1164;
 
