@@ -30,6 +30,11 @@ To run Jasmine unit tests
 npm test
 ```
 
+To run a subset of Jasmine unit tests
+```
+npm test -- --filter="flatMap"
+```
+
 ## Blog posts about 2017 solutions
 
 - [Day 1](http://markheath.net/post/advent-of-code-2017-day-1)
@@ -44,3 +49,6 @@ npm test
 - [Day 10](http://markheath.net/post/advent-of-code-2017-day-10)
 - [Day 11](http://markheath.net/post/advent-of-code-2017-day-11)
 - [Day 12](http://markheath.net/post/advent-of-code-2017-day-12)
+- [Day 13](http://markheath.net/post/advent-of-code-2017-day-13)
+- [Day 14](http://markheath.net/post/advent-of-code-2017-day-14)
+- [Day 15](http://markheath.net/post/advent-of-code-2017-day-15)
