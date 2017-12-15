@@ -182,9 +182,29 @@ function count(seq) {
     return n;
 }
 
+function *take(seq, count) {
+    let n = 0;
+    for(let el of seq) {
+        if (++n > count) return;
+        yield el;
+    }
+}
+
+function *zip(seq1,seq2) {
+    let it1 = seq1[Symbol.iterator]()
+    let it2 = seq2[Symbol.iterator]()
+    for(;;) {
+        let el1 = it1.next()
+        if(el1.done) return;
+        let el2 = it2.next()
+        if(el2.done) return;
+        yield [el1.value,el2.value]
+    }
+}
+
 module.exports = { 
     scan,pairwise,permutations,flatMap,
     range,sumBy,maxBy,minBy,bfs,
-    min,max,shuffle,matches,
+    min,max,shuffle,matches,take,zip,
     batch,sum,any,first,where,map,count,reduce 
 }
