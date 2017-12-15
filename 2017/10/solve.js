@@ -52,4 +52,4 @@ function reverseSection(list, currentPos, length) {
     return out;
 }
 
-module.exports = {solve,expected,reverseSection,applyLengths,hashString};
+module.exports = {solve,expected,reverseSection,applyLengths,hashString,toHex};

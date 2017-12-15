@@ -1,4 +1,4 @@
-const { reverseSection,applyLengths,hashString } = require("../2017/10/solve")
+const { reverseSection,applyLengths,hashString,toHex } = require("../2017/10/solve")
 
 const reverseTests = [ [[0,1,2,3,4], 0, 2, [1,0,2,3,4] ],
 [[0,1,2,3,4], 1, 3, [0,3,2,1,4] ],
@@ -26,6 +26,6 @@ describe("2017 day 10", function() {
 
     it ("can hash strings", function() {
         for (let [input,expected] of hashTests)
-            expect(hashString(input)).toEqual(expected);
+            expect(toHex(hashString(input))).toEqual(expected);
     })
 });
