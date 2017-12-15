@@ -1,4 +1,4 @@
-let { count } = require("../../utils/utils")
+let { count,range } = require("../../utils/utils")
 describe("count util", function() {
     it ("can count an empty array", function() {
         let solution = count([]);
@@ -18,6 +18,11 @@ describe("count util", function() {
     it ("can count any iterable", function() {
         let solution = count(new Map([[1,2],[3,4]]));
         expect(solution).toBe(2)
+    })
+
+    it ("can apply predicate", function() {
+        let solution = count(range(1,6),n => n%2 === 1);
+        expect(solution).toBe(3)
     })
 
 })

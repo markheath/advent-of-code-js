@@ -1,4 +1,4 @@
-let {take,zip,where,count} = require('../../utils/utils')
+let {take,zip,count} = require('../../utils/utils')
 function solve(input, part) {
     const parse = s => Number(/\d+/.exec(s)[0])
     let genAStart = parse(input[0])
@@ -15,7 +15,7 @@ function solve(input, part) {
 
 function countMatch(seq1,seq2,n) {
     const comp = ([a,b]) => (a&0xFFFF) === (b&0xFFFF); // brackets are needed!
-    return count(where(take(zip(seq1,seq2),n),comp))
+    return count(take(zip(seq1,seq2),n),comp)
 }
 
 function *generator(seed,factor,test) {

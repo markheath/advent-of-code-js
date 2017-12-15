@@ -175,10 +175,11 @@ function reduce(seq, fn, acc) {
     return acc;
 }
 
-function count(seq) {
-    let it = seq[Symbol.iterator]()
+function count(seq, predicate) {
     let n = 0;
-    while(!it.next().done) n++;
+    for(let el of seq) {
+        if (!predicate || predicate(el)) n++
+    }
     return n;
 }
 
