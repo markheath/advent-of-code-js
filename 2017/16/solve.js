@@ -48,6 +48,6 @@ function dance(instructions, start) {
 }
 
 
-const expected = part => part === 1 ? "pkgnhomelfdibjac" : -1;
+const expected = part => part === 1 ? "pkgnhomelfdibjac" : "pogbjfihclkemadn";
 
 module.exports = {solve,expected};
