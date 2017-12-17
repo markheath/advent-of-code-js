@@ -16,7 +16,7 @@
             "request": "launch",
             "name": "Specific day",
             "program": "${workspaceFolder}\\index.js",
-            "args": ["2015", "10"]
+            "args": ["2017", "16"]
         }
     ]
 }
