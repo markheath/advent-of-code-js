@@ -10,7 +10,7 @@ function solve(input,part) {
             if (c === "+") [x,dir] = input[y][x-1] != " " ? [x-1,"L"] : [x+1,"R"]
             else y += (dir === "D") ? 1 : -1;
         }
-        else if (dir === "R" || dir === "L") {
+        else {
             if (c === "+") [y,dir] = input[y-1][x] != " " ? [y-1,"U"] : [y+1,"D"]
             else x += (dir === "L") ? -1 : 1;
         }
