@@ -1,8 +1,7 @@
 function solve(input,part) {
     const letters = [];
     let [x,y] = [input[0].indexOf('|'),0]
-    let dir = "D", n = 0;
-    for(;input[y][x] != " ";n++) {
+    for(let dir = "D", n = 0; input[y][x] != " ";n++) {
         let c = input[y][x];
         if (c >= "A" && c <= "Z") letters.push(c)
 
