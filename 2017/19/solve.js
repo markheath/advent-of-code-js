@@ -3,7 +3,9 @@ function solve(input,part) {
     const letters = [];
     let [x,y] = [startingPoint,0]
     let direction = "D"
+    let n = 0;
     for(;;) {
+        n++;
         let c = input[y][x]
         if (direction === "D") {
             if (c === "|") y++;
@@ -46,9 +48,9 @@ function solve(input,part) {
             else break;
         }
     }
-    return letters.join('');
+    return part === 1 ? letters.join('') : n-1;
 } 
 
-const expected = part => part === 1 ? "todo" : "todo"
+const expected = part => part === 1 ? "RUEDAHWKSM" : 17264
 
 module.exports = {solve,expected}
