@@ -203,9 +203,60 @@ function *zip(seq1,seq2) {
     }
 }
 
+function firstRepeated(seq, repeats, selector) {
+    let current;
+    let currentEl;
+    let count = 0;
+    for(let el of seq) {
+        let testVal = (selector ? selector(el) : el)
+        if (testVal === current) {
+            count++;
+            if (count >= repeats) return [current,currentEl]
+        }
+        else {
+            current = testVal
+            currentEl = el
+            count = 1;
+        }
+    }
+    throw new Error("Repeated element not found")
+}
+
+function firstRepeatedValue(seq, repeats, selector) {
+    return firstRepeated(seq, repeats, selector)[0]
+}
+
+function firstRepeatedElement(seq, repeats, selector) {
+    return firstRepeated(seq, repeats, selector)[1]
+}
+
+
+function nonRepeated(seq, selector) {
+    let map = new Map() 
+    for (let el of seq) {
+        let key = selector ? selector(el) : el;
+        if (!map.has(key)) {
+            map.set(key, el)
+        }
+        else {
+            map.set(key, undefined) // don't delete to eliminate three at same pos
+        }
+    }
+    return where(map.values(),n => n !== undefined)
+}
+
+function* unfold(start, fn) {
+    yield start;
+    for(;;) {
+        start = fn(start)
+        yield start
+    }
+}
+
 module.exports = { 
     scan,pairwise,permutations,flatMap,
     range,sumBy,maxBy,minBy,bfs,
     min,max,shuffle,matches,take,zip,
-    batch,sum,any,first,where,map,count,reduce 
+    batch,sum,any,first,where,map,count,reduce,
+    firstRepeatedValue,nonRepeated,unfold,firstRepeatedElement
 }
