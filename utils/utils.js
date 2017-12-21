@@ -191,6 +191,13 @@ function *take(seq, count) {
     }
 }
 
+function *skip(seq, count) {
+    let n = 0;
+    for(let el of seq) {
+        if (++n > count) yield el;
+    }
+}
+
 function *zip(seq1,seq2) {
     let it1 = seq1[Symbol.iterator]()
     let it2 = seq2[Symbol.iterator]()
@@ -256,7 +263,7 @@ function* unfold(start, fn) {
 module.exports = { 
     scan,pairwise,permutations,flatMap,
     range,sumBy,maxBy,minBy,bfs,
-    min,max,shuffle,matches,take,zip,
+    min,max,shuffle,matches,take,zip,skip,
     batch,sum,any,first,where,map,count,reduce,
     firstRepeatedValue,nonRepeated,unfold,firstRepeatedElement
 }

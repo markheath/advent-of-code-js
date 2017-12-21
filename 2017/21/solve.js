@@ -1,25 +1,11 @@
+const { flatMap,map,unfold,skip,first } = require('../../utils/utils')
 function solve(input,part) {
-    let rules = input.map(i => i.replace(/\//g,'').split(' ')).map(p => [p[0],p[2]])
-    //console.log(expand("../.#"))
-    //console.log(expand(".#./..#/###"))
-    let expanded = new Map()
-    for(let [input,output] of rules) {
-        for (let e of expand(input)) {
-            if (expanded.has(e)) {
-                throw new Error(`replacing ${e}, ${expanded.get(e)} ${output}`)
-            }
-            expanded.set(e,output)
-        }
-    }
-    //console.log(expanded)
-    let state = [".#.","..#","###"]
-
-    for(let n = 0; n < (part === 1 ? 5 : 18); n++) {
-        state = iterate(state,expanded)
-        //console.log("iteration", n+1)
-        //console.log(state)
-    }
-    return state.reduce((a,s) => a + s.replace(/\./g,'').length,0)
+    const rules = input.map(i => i.replace(/\//g,'').split(' ')).map(p => [p[0],p[2]])
+    const lookup = new Map(flatMap(rules,([input,output]) => map(expand(input),i => [i,output])))
+    const start = [".#.","..#","###"]
+    const repeats = (part === 1 ? 5 : 18);
+    let end = first(skip(unfold(start, s=>iterate(s,lookup)),repeats))
+    return end.reduce((a,s) => a + s.replace(/\./g,'').length,0)
 }
 
 function iterate(p, lookup) {
@@ -67,44 +53,23 @@ const flip3 = s => s[6]+s[7]+s[8]+s[3]+s[4]+s[5]+s[0]+s[1]+s[2]
 const flip3LR = s => s[2]+s[1]+s[0]+s[5]+s[4]+s[3]+s[8]+s[7]+s[6]
 const rot3 = s => s[6]+s[3]+s[0]+s[7]+s[4]+s[1]+s[8]+s[5]+s[2]
 
-function perms3(s,q) {
-    let f = flip3(q)
-    if(!s.has(f)) {
-        s.add(f)
-        perms3(s,f)
-    }
-    f = flip3LR(q)
-    if(!s.has(f)) {
-        s.add(f)
-        perms3(s,f)
-    }
-    f = rot3(q)
-    if(!s.has(f)) {
-        s.add(f)
-        perms3(s,f)
+function perms(s,q,ops) {
+    s.add(q)
+    for(let op of ops) {
+        let f = op(q)
+        if(!s.has(f)) {
+            perms(s,f,ops)
+        }
     }
 }
 
 function expand(p) {
     let s = new Set()
-    s.add(p)
-
     if (p.length === 4) {
-        s.add(flip2(p))
-        s.add(flip2LR(p))
-        let r90 = rot2(p)
-        s.add(r90)
-        s.add(flip2(r90))
-        s.add(flip2LR(r90))
-        let r180 = rot2(r90)
-        s.add(flip2(r180))
-        s.add(flip2LR(r180))
-        let r270 = rot2(r180)
-        s.add(flip2(r270))
-        s.add(flip2LR(r270))
+        perms(s,p,[flip2,flip2LR,rot2])
     }
     else if (p.length === 9){
-        perms3(s,p)
+        perms(s,p,[flip3,flip3LR,rot3])
     }
     else {
         throw new Error("unexpected expand length",p)
