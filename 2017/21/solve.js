@@ -14,10 +14,10 @@ function solve(input,part) {
     //console.log(expanded)
     let state = [".#.","..#","###"]
 
-    for(let n = 0; n < 5; n++) {
+    for(let n = 0; n < (part === 1 ? 5 : 18); n++) {
         state = iterate(state,expanded)
-        console.log("iteration", n+1)
-        console.log(state)
+        //console.log("iteration", n+1)
+        //console.log(state)
     }
     return state.reduce((a,s) => a + s.replace(/\./g,'').length,0)
 }
@@ -112,6 +112,6 @@ function expand(p) {
     return s;
 }
 
-const expected = part => part === 1 ? 197 : "todo"
+const expected = part => part === 1 ? 197 : 3081737
 
 module.exports = { solve, expected }
