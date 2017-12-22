@@ -38,7 +38,7 @@ function permutations(inputArr) {
 
 function* flatMap(xs,f) {
     for (let x of xs) {
-        yield *f(x);
+        if (f) yield *f(x); else yield *x;
     }
 }
 
