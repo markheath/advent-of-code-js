@@ -2,7 +2,7 @@ const { flatMap } = require('../../utils/utils')
 function solve(input, part) {
     //console.log(input.length,input[0].length)
     let delta = Math.floor(input.length / 2)
-    const viruses = new Set([...flatMap(input.map((row,y) => [...row].map((ch,x) => [ch,x-delta,y-delta]).filter(([ch]) => ch === '#')))].map(([,x,y]) => `${x},${y}`))
+    const viruses = new Map([...flatMap(input.map((row,y) => [...row].map((ch,x) => [ch,x-delta,y-delta]).filter(([ch]) => ch === '#')))].map(([,x,y]) => [`${x},${y}`,'#']))
     let curPos = [0,0]
     let curDir = 'U'
     const dirs = "URDL"
@@ -17,7 +17,7 @@ function solve(input, part) {
         }
         else {
             newInfections++;
-            viruses.add(key)
+            viruses.set(key,'#')
         }
         if(curDir === 'U') curPos[1]--;
         else if(curDir === 'D') curPos[1]++;
