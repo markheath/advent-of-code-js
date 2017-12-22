@@ -25,11 +25,11 @@ function solve(input, part) {
         }
         else {
             const states = ".W#F.";
-            const curNode = viruses.get(key) || '.'
-            if (curNode === '.') curDir = dirs[dirs.indexOf(curDir) + 3] // left
-            else if (curNode === '#') curDir = dirs[dirs.indexOf(curDir) + 1] // right
-            else if (curNode === 'F') curDir = dirs[dirs.indexOf(curDir) + 2] // reverse
-            const newState = states[states.indexOf(curNode) + 1]
+            const curState = viruses.get(key) || '.'
+            if (curState === '.') curDir = dirs[dirs.indexOf(curDir) + 3] // left
+            else if (curState === '#') curDir = dirs[dirs.indexOf(curDir) + 1] // right
+            else if (curState === 'F') curDir = dirs[dirs.indexOf(curDir) + 2] // reverse
+            const newState = states[states.indexOf(curState) + 1]
             if (newState === '#') newInfections++;
             //console.log(curNode, newState, curDir, curPos)
             viruses.set(key, newState)
