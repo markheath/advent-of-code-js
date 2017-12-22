@@ -5,19 +5,34 @@ function solve(input, part) {
     const viruses = new Map([...flatMap(input.map((row,y) => [...row].map((ch,x) => [ch,x-delta,y-delta]).filter(([ch]) => ch === '#')))].map(([,x,y]) => [`${x},${y}`,'#']))
     let curPos = [0,0]
     let curDir = 'U'
-    const dirs = "URDL"
+    const dirs = "URDLURDL"
     let newInfections = 0;
-    for(let burst = 0; burst < 10000; burst++) {
+    let bursts = part === 1 ? 10000 : 10000000;
+    for(let burst = 0; burst < bursts; burst++) {
         const key = curPos.toString()
-        const isInfected = viruses.has(key)
         //console.log(curPos,curDir,isInfected)
-        curDir = dirs[(dirs.length + dirs.indexOf(curDir) + (isInfected ? 1 : -1)) % dirs.length]
-        if (isInfected) {
-            viruses.delete(key); 
+        if (part === 1) {
+            const isInfected = viruses.get(key) === '#'
+            curDir = dirs[dirs.indexOf(curDir) + (isInfected ? 1 : 3)]
+            if (isInfected) {
+                viruses.delete(key); 
+            }
+            else {
+                newInfections++;
+                viruses.set(key,'#')
+            }
+
         }
         else {
-            newInfections++;
-            viruses.set(key,'#')
+            const states = ".W#F.";
+            const curNode = viruses.get(key) || '.'
+            if (curNode === '.') curDir = dirs[dirs.indexOf(curDir) + 3] // left
+            else if (curNode === '#') curDir = dirs[dirs.indexOf(curDir) + 1] // right
+            else if (curNode === 'F') curDir = dirs[dirs.indexOf(curDir) + 2] // reverse
+            const newState = states[states.indexOf(curNode) + 1]
+            if (newState === '#') newInfections++;
+            //console.log(curNode, newState, curDir, curPos)
+            viruses.set(key, newState)
         }
         if(curDir === 'U') curPos[1]--;
         else if(curDir === 'D') curPos[1]++;
@@ -25,7 +40,7 @@ function solve(input, part) {
         else curPos[0]++;
     }
     //console.log(viruses)
-    return part === 1 ? newInfections : 0;
+    return newInfections;
 }
 
 const expected = part => part === 1 ? 5305 : "todo"
