@@ -43,6 +43,6 @@ function solve(input, part) {
     return newInfections;
 }
 
-const expected = part => part === 1 ? 5305 : "todo"
+const expected = part => part === 1 ? 5305 : 2511424
 
 module.exports = { solve, expected }
