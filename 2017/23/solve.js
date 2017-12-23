@@ -6,10 +6,14 @@ function solve(input, part) {
         while(!int.execute()) {
             //
         }
-        return int.mult();    
+        return int.mult();
     }
-
-    return part2();
+    // counting non-primes
+    let h = 0
+    for(let b = 106700; b <= 123700; b += 17) { 
+        if (!isPrime(b)) h++;
+    }
+    return h;
 }
 
 function interpreter(instructions, a) {
@@ -34,28 +38,6 @@ function interpreter(instructions, a) {
         console.log(curPos,instructions[curPos],registers)
     }
     return {execute,showState,mult:() => multiplies}
-}
-
-
-function part2() {
-    let f,h=0
-    for(let b = 106700; b <= 123700; b += 17) { 
-        /*
-        f = 1                  // set f 1
-        for(let d=2; (d!=b) && (f ==1); d++) {
-            for(let e = 2; (e != b) && (f == 1); e++) { 
-                if ((d * e) === b) {    // set g d, mul g e, sub g b, jnz g 2
-                    f = 0       // set f 0
-                }
-            } 
-        }
-        if(f ===0)              // jnz f 2
-            h++                 // sub h -1
-            */
-        if (!isPrime(b)) h++; // 904 too low
-        //else (console.log(b))
-    } 
-    return h;
 }
 
 const isPrime = num => {
