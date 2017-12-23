@@ -39,7 +39,7 @@ function interpreter(instructions, a) {
 
 function part2() {
     let f,h=0
-    for(let b = 106700; b !== 123700; b += 17) { 
+    for(let b = 106700; b <= 123700; b += 17) { 
         /*
         f = 1                  // set f 1
         for(let d=2; (d!=b) && (f ==1); d++) {
@@ -53,6 +53,7 @@ function part2() {
             h++                 // sub h -1
             */
         if (!isPrime(b)) h++; // 904 too low
+        //else (console.log(b))
     } 
     return h;
 }
@@ -63,6 +64,6 @@ const isPrime = num => {
     return num !== 1;
 }
 
-const expected = part => part === 1 ? 4225 : "todo"
+const expected = part => part === 1 ? 4225 : 905
 
 module.exports = { solve, expected }
