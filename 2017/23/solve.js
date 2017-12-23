@@ -43,32 +43,21 @@ function interpreter(instructions, a) {
 }
 
 
-function part2(a) {
-    let b,c,d,e,f,h
-    b = 67                      // set b 67
-    c = b                       // set c b
-    if (a !== 0) {              // jnz a 2, jnz 1 5
-        b *= 100                // mul b 100
-        b += 100000             // sub b -100000
-        c = b                   // set c b
-        c += 17000 }            // sub c -17000
-    do { f = 1                  // set f 1
-        d = 2                   // set d 2
-        do {e = 2               // set e 2
-            do { 
-                if ((d * e) === b)    // set g d, mul g e, sub g b, jnz g 2
+function part2() {
+    let f,h=0
+    for(let b = 106700; b !== 123700; b += 17) { 
+        f = 1                  // set f 1
+        for(let d=2; d!=b; d++) {
+            for(let e = 2; e != b; e++) { 
+                if ((d * e) === b) {    // set g d, mul g e, sub g b, jnz g 2
                     f = 0       // set f 0
-                e++             // sub e -1
-            } while (e != b)    // set g e, sub g b, jnz g -8
-            d++                 // sub d -1
-        } while (d != b)        // set g d, sub g b, jnz g -13
+                }
+            } 
+        }
         if(f ===0)              // jnz f 2
             h++                 // sub h -1
-        // these last 4 lines mean loop x1 in part 1 and x1000 in part 2
-        if (b === c)            // set g b,sub g c, jnz g 2
-            return h            // jnz 1 3
-        b += 17                 // sub b -17
-    } while(true)               // jnz 1 -23
+    } 
+    return h;
 }
 
 
