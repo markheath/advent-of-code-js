@@ -40,10 +40,10 @@ function interpreter(instructions, a) {
 function part2() {
     let f,h=0
     for(let b = 106700; b !== 123700; b += 17) { 
-        
+        /*
         f = 1                  // set f 1
-        for(let d=2; d!=b; d++) {
-            for(let e = 2; e != b; e++) { 
+        for(let d=2; (d!=b) && (f ==1); d++) {
+            for(let e = 2; (e != b) && (f == 1); e++) { 
                 if ((d * e) === b) {    // set g d, mul g e, sub g b, jnz g 2
                     f = 0       // set f 0
                 }
@@ -51,8 +51,8 @@ function part2() {
         }
         if(f ===0)              // jnz f 2
             h++                 // sub h -1
-            
-        //if (isPrime(b)) h++;
+            */
+        if (!isPrime(b)) h++; // 904 too low
     } 
     return h;
 }
