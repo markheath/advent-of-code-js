@@ -9,13 +9,7 @@ function solve(input, part) {
         return int.mult();    
     }
 
-    const int = interpreter(instructions, 1)
-    let it = 0
-    while(!int.execute()) {
-        int.showState()
-        if (it++ > 10) break;
-    }
-    return int.mult();
+    return part2();
 }
 
 function interpreter(instructions, a) {
@@ -46,6 +40,7 @@ function interpreter(instructions, a) {
 function part2() {
     let f,h=0
     for(let b = 106700; b !== 123700; b += 17) { 
+        
         f = 1                  // set f 1
         for(let d=2; d!=b; d++) {
             for(let e = 2; e != b; e++) { 
@@ -56,10 +51,17 @@ function part2() {
         }
         if(f ===0)              // jnz f 2
             h++                 // sub h -1
+            
+        //if (isPrime(b)) h++;
     } 
     return h;
 }
 
+const isPrime = num => {
+    for(let i = 2, s = Math.sqrt(num); i <= s; i++)
+        if(num % i === 0) return false; 
+    return num !== 1;
+}
 
 const expected = part => part === 1 ? 4225 : "todo"
 
