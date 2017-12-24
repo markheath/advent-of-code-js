@@ -1,11 +1,11 @@
-const { maxBy} = require('../../utils/utils')
+const { max} = require('../../utils/utils')
 
 let bridges;
 function solve(input,part) {
     let parts = input.map(i => i.split('/').map(n => Number(n)))
     bridges = bridges || [...build(0,[],parts,0)]
     if (part === 1) {
-        return maxBy(bridges,c => c.strength).strength
+        return max(bridges,c => c.strength)
     }
     else {
         return bridges.sort((a,b) => b.used.length - a.used.length || b.strength - a.strength)[0].strength
