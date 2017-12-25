@@ -1,4 +1,5 @@
 function solve(input,part) {
+    if (part === 2) return 0
     let state = 'A'
     const steps = 12481997
     let cursor = 0
@@ -26,6 +27,6 @@ function solve(input,part) {
     return checksum;
 }
 
-const expected = part => part === 1 ? 3362:"todo";
+const expected = part => part === 1 ? 3362: 0;
 
 module.exports = {solve,expected}
