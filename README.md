@@ -2,7 +2,7 @@
 
 This is a repository for me to attempt the [Advent of Code](http://adventofcode.com) challenges in JavaScript.
 
-In past years I've solved them using C# and F#. [read about my solutions here](http://markheath.net/category/advent+of+code). This repository is for me to improve my JavaScript skills by re-attempting past challenges in JavaScript (and possibly attempting the 2017 challenges in JavaScript too)
+In past years I've solved them using C# and F#. [read about my solutions here](http://markheath.net/category/advent+of+code). This repository is for me to improve my JavaScript skills by solving the puzzles with node.js as ES6. I've ported my 2015 solutions to JavaScript, and in 2017 I just used JavaScript.
 
 To get started:
 ```
@@ -52,3 +52,13 @@ npm test -- --filter="flatMap"
 - [Day 13](http://markheath.net/post/advent-of-code-2017-day-13)
 - [Day 14](http://markheath.net/post/advent-of-code-2017-day-14)
 - [Day 15](http://markheath.net/post/advent-of-code-2017-day-15)
+- [Day 16](http://markheath.net/post/advent-of-code-2017-day-16)
+- [Day 17](http://markheath.net/post/advent-of-code-2017-day-17)
+- [Day 18](http://markheath.net/post/advent-of-code-2017-day-18)
+- [Day 19](http://markheath.net/post/advent-of-code-2017-day-19)
+- [Day 20](http://markheath.net/post/advent-of-code-2017-day-20)
+- [Day 21](http://markheath.net/post/advent-of-code-2017-day-21)
+- [Day 22](http://markheath.net/post/advent-of-code-2017-day-22)
+- [Day 23](http://markheath.net/post/advent-of-code-2017-day-23)
+- [Day 24](http://markheath.net/post/advent-of-code-2017-day-24)
+- [Day 25](http://markheath.net/post/advent-of-code-2017-day-25)
